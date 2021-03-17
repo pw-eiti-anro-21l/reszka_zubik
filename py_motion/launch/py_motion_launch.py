@@ -14,7 +14,11 @@ def generate_launch_description():
             name='my_pub',
             prefix= ['gnome-terminal --disable-factory --'],
             parameters = [
-                {'my_parameter': 'gdpl'}
+                {'my_parameter_up': 'u',
+                'my_parameter_down': 'd',
+                'my_parameter_right': 'p',
+                'my_parameter_left': 'l',
+                'my_parameter_stop': 's',}
             ]
         )
     ])

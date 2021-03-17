@@ -14,7 +14,11 @@ class MinimalPublisher(Node):
         timer_period = 0.5  # seconds
         self.timer_ = self.create_timer(timer_period, self.publish_message)
         
-        self.declare_parameter('my_parameter', 'gdpl')
+        self.declare_parameter('my_parameter_up', 'g')
+        self.declare_parameter('my_parameter_down', 'd')
+        self.declare_parameter('my_parameter_right', 'p')
+        self.declare_parameter('my_parameter_left', 'l')
+        self.declare_parameter('my_parameter_stop', 's')
         
     def correct_key(self, user_key):
         for key in self.key_mapping:
@@ -25,13 +29,19 @@ class MinimalPublisher(Node):
     def publish_message(self):
         message = Twist()
 
-        my_param = self.get_parameter('my_parameter').get_parameter_value().string_value
+        my_param_up = self.get_parameter('my_parameter_up').get_parameter_value().string_value
+        my_param_down = self.get_parameter('my_parameter_down').get_parameter_value().string_value
+        my_param_right = self.get_parameter('my_parameter_right').get_parameter_value().string_value
+        my_param_left = self.get_parameter('my_parameter_left').get_parameter_value().string_value
+        my_param_stop = self.get_parameter('my_parameter_stop').get_parameter_value().string_value
 
+	
         self.key_mapping = {
-            my_param[0]: [0, 1],  #g
-            my_param[1]: [0, -1], #d
-            my_param[2]: [-1, 0], #p
-            my_param[3]: [1, 0],  #l
+            my_param_up: [0, 1],  #g
+            my_param_down: [0, -1], #d
+            my_param_right: [-1, 0], #p
+            my_param_left: [1, 0],  #l
+            my_param_stop: [0,0]    #s
         }
         print(self.key_mapping)
         """
