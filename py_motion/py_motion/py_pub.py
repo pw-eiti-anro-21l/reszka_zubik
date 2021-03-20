@@ -19,6 +19,13 @@ class MinimalPublisher(Node):
         self.declare_parameter('my_parameter_right', 'p')
         self.declare_parameter('my_parameter_left', 'l')
         self.declare_parameter('my_parameter_stop', 's')
+
+        self.last_my_param_up = 'g'
+        self.last_my_param_down = 'd'
+        self.last_my_param_right = 'p'
+        self.last_my_param_left = 'l'
+        self.last_my_param_stop = 's'
+        print ("Motion: " + self.last_my_param_up + "- UP; " + self.last_my_param_down + "- DOWN; " + self.last_my_param_right + "- RIGHT; " + self.last_my_param_left + "- LEFT; " + self.last_my_param_stop + "- STOP")
         
     def correct_key(self, user_key):
         for key in self.key_mapping:
@@ -35,7 +42,10 @@ class MinimalPublisher(Node):
         my_param_left = self.get_parameter('my_parameter_left').get_parameter_value().string_value
         my_param_stop = self.get_parameter('my_parameter_stop').get_parameter_value().string_value
 
-	
+        if (self.last_my_param_up != my_param_up or self.last_my_param_down!= my_param_down or self.last_my_param_right != my_param_right or self.last_my_param_left != my_param_left or self.last_my_param_stop != my_param_stop):
+            print ("Motion: " + my_param_up + "- UP; " + my_param_down + "- DOWN; " + my_param_right + "- RIGHT; " + my_param_left + "- LEFT; " + my_param_stop + "- STOP")
+
+
         self.key_mapping = {
             my_param_up: [0, 1],  #g
             my_param_down: [0, -1], #d
@@ -43,7 +53,7 @@ class MinimalPublisher(Node):
             my_param_left: [1, 0],  #l
             my_param_stop: [0,0]    #s
         }
-        print(self.key_mapping)
+        
         """
         my_new_param = rclpy.parameter.Parameter(
             'my_parameter',
@@ -62,6 +72,13 @@ class MinimalPublisher(Node):
         message.angular.z = float(vels[0])
         message.linear.x = float(vels[1])
         self.publisher_.publish(message)
+
+        self.last_my_param_up = my_param_up
+        self.last_my_param_down = my_param_down
+        self.last_my_param_right = my_param_right
+        self.last_my_param_left = my_param_left
+        self.last_my_param_stop = my_param_stop
+
         
 
 def main(args=None):
