@@ -14,7 +14,7 @@ def generate_launch_description():
             name='my_pub',
             prefix= ['gnome-terminal --'],
             parameters = [
-                {'my_parameter_up': 'w',
+                {'my_parameter_up': 'g',
                 'my_parameter_down': 'd',
                 'my_parameter_right': 'p',
                 'my_parameter_left': 'l',
