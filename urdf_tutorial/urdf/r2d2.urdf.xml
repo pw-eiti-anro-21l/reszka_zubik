@@ -1,0 +1,150 @@
+
+<robot name="r2d2">
+
+<link name="axis">
+
+  <visual>
+  <origin rpy="0 0 0" xyz="0 0 .6" />
+    <geometry>
+      <cylinder radius="0.2" length="1.2" />
+    </geometry>
+  </visual>
+
+</link>
+
+<link name="leg1">
+
+  <visual>
+    <origin rpy="0 0 0" xyz="0 0 1.225" />
+    <geometry>
+      <cylinder radius="0.13" length="0.05" />
+    </geometry>
+  </visual>
+
+</link>
+
+<joint name="leg1connect" type="fixed">
+  <origin xyz="0 0 1.2" />
+  <parent link="axis"/>
+  <child link="leg1"/>
+</joint>
+
+<link name="leg2">
+
+  <visual>
+    <origin rpy="0 1.5708 0" xyz="0.4 0 1.3" />
+    <geometry>
+      <box size=".1 .15 1" />
+    </geometry>
+  </visual>
+
+</link>
+
+<joint name="leg2connect" type="fixed">
+  <origin xyz="0 0 1.25" />
+  <parent link="axis"/>
+  <child link="leg2"/>
+</joint>
+
+<link name="body">
+
+
+  <visual>
+    <origin rpy="0 0 0" xyz="0.8 0 1.375" />
+    <geometry>
+      <cylinder radius="0.06" length="0.05" />
+    </geometry>
+  </visual>
+
+</link>
+
+<joint name="tilt" type="fixed">
+  <parent link="axis"/>
+  <child link="body"/>
+  <origin xyz="0.85 0 2.1" rpy="0 0 0" />
+</joint>
+
+<link name="head">
+
+  <visual>
+    <origin rpy="0 1.5708 0" xyz="0.4 0 1.3" />
+    <geometry>
+      <box size=".1 .15 1" />
+    </geometry>
+  </visual>
+
+</link>
+
+<joint name="swivel" type="continuous">
+  <origin xyz="0 0 0.1" />
+  <axis xyz="0 0 1" />
+  <parent link="body"/>
+  <child link="head"/>
+</joint>
+
+<link name="rod">
+  <inertial>
+    <mass value="1"/>
+    <inertia ixx="100" ixy="0" ixz="0" iyy="100" iyz="0" izz="100" />
+    <origin/>
+  </inertial>
+
+  <visual>
+    <origin xyz="0 0 -.1" />
+    <geometry>
+      <cylinder radius=".02" length=".2" />
+    </geometry>
+    <material name="gray" />
+
+  </visual>
+
+  <collision>
+    <origin/>
+    <geometry>
+      <cylinder radius=".02" length=".2" />
+    </geometry>
+    <contact_coefficients mu="0" kp="1000.0" kd="1.0"/>
+  </collision>
+</link>
+
+<joint name="periscope" type="prismatic">
+  <origin xyz=".12 0 .15" />
+  <axis xyz="0 0 1" />
+  <limit upper="0" lower="-.5" effort="10" velocity="10" />
+  <parent link="head"/>
+  <child link="rod"/>
+</joint>
+
+<link name="box">
+  <inertial>
+    <mass value="1"/>
+    <inertia ixx="100" ixy="0" ixz="0" iyy="100" iyz="0" izz="100" />
+    <origin/>
+  </inertial>
+
+  <visual>
+    <geometry>
+      <box size=".05 .05 .05" />
+    </geometry>
+    <material name="blue" >
+      <color rgba="0 0 1 1" />
+    </material>
+  </visual>
+
+  <collision>
+    <origin/>
+    <geometry>
+      <box size=".05 .05 .05" />
+    </geometry>
+    <contact_coefficients mu="0" kp="1000.0" kd="1.0"/>
+  </collision>
+</link>
+
+<joint name="boxconnect" type="fixed">
+  <origin xyz="0 0 0" />
+  <parent link="rod"/>
+  <child link="box"/>
+</joint>
+
+
+</robot>
