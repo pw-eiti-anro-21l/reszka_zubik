@@ -15,7 +15,7 @@
 <link name="leg1">
 
   <visual>
-    <origin rpy="0 0 0" xyz="0 0 1.225" />
+    <origin rpy="0 0 0" xyz="0 0 0.025" />
     <geometry>
       <cylinder radius="0.13" length="0.05" />
     </geometry>
@@ -32,7 +32,7 @@
 <link name="leg2">
 
   <visual>
-    <origin rpy="0 1.5708 0" xyz="0.4 0 1.3" />
+    <origin rpy="0 1.5708 0" xyz="0.45 0 0.05" />
     <geometry>
       <box size=".1 .15 1" />
     </geometry>
@@ -49,41 +49,41 @@
 <link name="body">
 
 
-  <visual>
+  <!-- <visual>
     <origin rpy="0 0 0" xyz="0.8 0 1.375" />
     <geometry>
       <cylinder radius="0.06" length="0.05" />
     </geometry>
-  </visual>
+  </visual> -->
 
 </link>
 
 <joint name="tilt" type="fixed">
   <parent link="axis"/>
   <child link="body"/>
-  <origin xyz="0.85 0 2.1" rpy="0 0 0" />
+  <!-- <origin xyz="0.85 0 2.1" rpy="0 0 0" /> -->
 </joint>
 
 <link name="head">
 
-  <visual>
+  <!-- <visual>
     <origin rpy="0 1.5708 0" xyz="0.4 0 1.3" />
     <geometry>
       <box size=".1 .15 1" />
     </geometry>
-  </visual>
+  </visual> -->
 
 </link>
 
 <joint name="swivel" type="continuous">
-  <origin xyz="0 0 0.1" />
-  <axis xyz="0 0 1" />
+  <!-- <origin xyz="0 0 0.1" />
+  <axis xyz="0 0 1" /> -->
   <parent link="body"/>
   <child link="head"/>
 </joint>
 
 <link name="rod">
-  <inertial>
+  <!-- <inertial>
     <mass value="1"/>
     <inertia ixx="100" ixy="0" ixz="0" iyy="100" iyz="0" izz="100" />
     <origin/>
@@ -104,11 +104,11 @@
       <cylinder radius=".02" length=".2" />
     </geometry>
     <contact_coefficients mu="0" kp="1000.0" kd="1.0"/>
-  </collision>
+  </collision> -->
 </link>
 
 <joint name="periscope" type="prismatic">
-  <origin xyz=".12 0 .15" />
+  <!-- <origin xyz=".12 0 .15" /> -->
   <axis xyz="0 0 1" />
   <limit upper="0" lower="-.5" effort="10" velocity="10" />
   <parent link="head"/>
@@ -116,7 +116,7 @@
 </joint>
 
 <link name="box">
-  <inertial>
+  <!-- <inertial>
     <mass value="1"/>
     <inertia ixx="100" ixy="0" ixz="0" iyy="100" iyz="0" izz="100" />
     <origin/>
@@ -137,11 +137,11 @@
       <box size=".05 .05 .05" />
     </geometry>
     <contact_coefficients mu="0" kp="1000.0" kd="1.0"/>
-  </collision>
+  </collision> -->
 </link>
 
 <joint name="boxconnect" type="fixed">
-  <origin xyz="0 0 0" />
+  <!-- <origin xyz="0 0 0" /> -->
   <parent link="rod"/>
   <child link="box"/>
 </joint>
