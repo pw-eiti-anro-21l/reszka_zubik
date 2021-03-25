@@ -17,7 +17,7 @@
   <visual>
     <origin rpy="0 1.5708 0" xyz="0.45 0 0.05" />
     <geometry>
-      <box size=".1 .15 1" />
+      <box size=".1 .18 1" />
     </geometry>
   </visual>
 
@@ -34,7 +34,7 @@
 <link name="leg2">
 
   <visual>
-    <origin rpy="0 1.5708 0" xyz="0.25 0 0.05" />
+    <origin rpy="0 1.5708 0" xyz="0.3 0 0.05" />
     <geometry>
       <box size=".1 .15 0.6" />
     </geometry>
@@ -44,7 +44,7 @@
 
 <joint name="leg2connect" type="fixed">
 
-  <origin xyz="0.9 0 0.1" />
+  <origin xyz="1 0 0" />
   <parent link="leg1"/>
   <child link="leg2"/>
 
@@ -53,9 +53,9 @@
 <link name="body">
 
   <visual>
-    <origin rpy="0 0 0" xyz="-0.025 0 0.0" />
+    <origin rpy="0 0 0" xyz="-0.025 0 -0.15" />
     <geometry>
-      <box size=".05 .1 0.6" />
+      <box size=".05 .1 0.3" />
     </geometry>
   </visual>
 
