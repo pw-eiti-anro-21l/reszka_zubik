@@ -75,7 +75,7 @@
 
 </link>
 
-<joint name="swivel" type="continuous">
+<joint name="swivel"  type="fixed">
   <origin xyz="0 0 0.05" />
   <!-- <axis xyz="0 0 1" /> -->
   <parent link="body"/>
@@ -114,12 +114,12 @@
   </collision> -->
 </link>
 
-<joint name="periscope" type="prismatic">
+<joint name="periscope"  type="fixed">
   <origin xyz=".545 0 0.05" />
   <!-- <axis xyz="0 0 1" /> -->
   <parent link="head"/>
   <child link="rod"/>
-  <limit upper="0" lower="-.5" effort="10" velocity="10" />
+  <!-- <limit upper="0" lower="-.5" effort="10" velocity="10" /> -->
 </joint>
 
 <link name="box">
