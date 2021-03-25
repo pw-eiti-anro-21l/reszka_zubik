@@ -24,9 +24,11 @@
 </link>
 
 <joint name="leg1connect" type="fixed">
+
   <origin xyz="0 0 1.2" />
   <parent link="axis"/>
   <child link="leg1"/>
+
 </joint>
 
 <link name="leg2">
@@ -41,9 +43,11 @@
 </link>
 
 <joint name="leg2connect" type="fixed">
+
   <origin xyz="0 0 1.25" />
   <parent link="axis"/>
   <child link="leg2"/>
+
 </joint>
 
 <link name="body">
@@ -58,6 +62,7 @@
 </link>
 
 <joint name="tilt" type="fixed">
+
   <origin xyz="0.88 0 1.35" rpy="0 0 0" />
   <parent link="axis"/>
   <child link="body"/>
@@ -76,10 +81,11 @@
 </link>
 
 <joint name="swivel"  type="fixed">
+
   <origin xyz="0 0 0.05" />
-  <!-- <axis xyz="0 0 1" /> -->
   <parent link="body"/>
   <child link="head"/>
+
 </joint>
 
 <link name="rod">
@@ -90,36 +96,14 @@
       <box size=".05 .1 0.6" />
     </geometry>
   </visual>
-  <!-- <inertial>
-    <mass value="1"/>
-    <inertia ixx="100" ixy="0" ixz="0" iyy="100" iyz="0" izz="100" />
-    <origin/>
-  </inertial>
-
-  <visual>
-    <origin xyz="0 0 -.1" />
-    <geometry>
-      <cylinder radius=".02" length=".2" />
-    </geometry>
-    <material name="gray" />
-
-  </visual>
-
-  <collision>
-    <origin/>
-    <geometry>
-      <cylinder radius=".02" length=".2" />
-    </geometry>
-    <contact_coefficients mu="0" kp="1000.0" kd="1.0"/>
-  </collision> -->
 </link>
 
 <joint name="periscope"  type="fixed">
+
   <origin xyz=".545 0 0.05" />
-  <!-- <axis xyz="0 0 1" /> -->
   <parent link="head"/>
   <child link="rod"/>
-  <!-- <limit upper="0" lower="-.5" effort="10" velocity="10" /> -->
+
 </joint>
 
 <link name="box">
@@ -130,34 +114,15 @@
       <box size=".1 .05 .05" />
     </geometry>
   </visual>
-  <!-- <inertial>
-    <mass value="1"/>
-    <inertia ixx="100" ixy="0" ixz="0" iyy="100" iyz="0" izz="100" />
-    <origin/>
-  </inertial>
 
-  <visual>
-    <geometry>
-      <box size=".05 .05 .05" />
-    </geometry>
-    <material name="blue" >
-      <color rgba="0 0 1 1" />
-    </material>
-  </visual>
-
-  <collision>
-    <origin/>
-    <geometry>
-      <box size=".05 .05 .05" />
-    </geometry>
-    <contact_coefficients mu="0" kp="1000.0" kd="1.0"/>
-  </collision> -->
 </link>
 
 <joint name="boxconnect" type="fixed">
+
   <origin rpy="0 3.14 0" xyz="0.026 0 -0.3" />
   <parent link="rod"/>
   <child link="box"/>
+  
 </joint>
 
 
