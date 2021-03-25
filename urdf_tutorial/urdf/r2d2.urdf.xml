@@ -15,9 +15,9 @@
 <link name="leg1">
 
   <visual>
-    <origin rpy="0 0 0" xyz="0 0 0.025" />
+    <origin rpy="0 1.5708 0" xyz="0.5 0 0.05" />
     <geometry>
-      <cylinder radius="0.13" length="0.05" />
+      <box size=".1 .18 1" />
     </geometry>
   </visual>
 
@@ -34,45 +34,7 @@
 <link name="leg2">
 
   <visual>
-    <origin rpy="0 1.5708 0" xyz="0.45 0 0.05" />
-    <geometry>
-      <box size=".1 .15 1" />
-    </geometry>
-  </visual>
-
-</link>
-
-<joint name="leg2connect" type="fixed">
-
-  <origin xyz="0 0 1.25" />
-  <parent link="axis"/>
-  <child link="leg2"/>
-
-</joint>
-
-<link name="body">
-
-  <visual>
-    <origin rpy="0 0 0" xyz="0 0 0.025" />
-    <geometry>
-      <cylinder radius="0.06" length="0.05" />
-    </geometry>
-  </visual>
-
-</link>
-
-<joint name="tilt" type="fixed">
-
-  <origin xyz="0.88 0 1.35" rpy="0 0 0" />
-  <parent link="axis"/>
-  <child link="body"/>
-  
-</joint>
-
-<link name="head">
-
-  <visual>
-    <origin rpy="0 1.5708 0" xyz="0.25 0 0.05" />
+    <origin rpy="0 1.5708 0" xyz="0.3 0 0.05" />
     <geometry>
       <box size=".1 .15 0.6" />
     </geometry>
@@ -80,33 +42,34 @@
 
 </link>
 
-<joint name="swivel"  type="fixed">
+<joint name="leg2connect" type="fixed">
 
-  <origin xyz="0 0 0.05" />
-  <parent link="body"/>
-  <child link="head"/>
+  <origin xyz="1 0 0" />
+  <parent link="leg1"/>
+  <child link="leg2"/>
 
 </joint>
 
-<link name="rod">
+<link name="body">
 
   <visual>
-    <origin rpy="0 0 0" xyz="0.026 0 0.0" />
+    <origin rpy="0 0 0" xyz="-0.025 0 -0.15" />
     <geometry>
-      <box size=".05 .1 0.6" />
+      <box size=".05 .1 0.3" />
     </geometry>
   </visual>
+
 </link>
 
-<joint name="periscope"  type="fixed">
+<joint name="tilt" type="fixed">
 
-  <origin xyz=".545 0 0.05" />
-  <parent link="head"/>
-  <child link="rod"/>
-
+  <origin rpy="0 3.14 0" xyz="0.6 0 0" />
+  <parent link="leg2"/>
+  <child link="body"/>
+  
 </joint>
 
-<link name="box">
+<link name="head">
 
   <visual>
     <origin rpy="0 0 0" xyz="0 0 0.025" />
@@ -117,9 +80,47 @@
 
 </link>
 
+<joint name="swivel"  type="fixed">
+
+  <origin rpy="0 0 0" xyz="0 0 0" />
+  <parent link="body"/>
+  <child link="head"/>
+
+</joint>
+
+<link name="rod">
+
+  <!-- <visual>
+    <origin rpy="0 0 0" xyz="0.026 0 0.0" />
+    <geometry>
+      <box size=".05 .1 0.6" />
+    </geometry>
+  </visual> -->
+
+</link>
+
+<joint name="periscope"  type="fixed">
+
+  <!-- <origin xyz=".545 0 0.05" /> -->
+  <parent link="head"/>
+  <child link="rod"/>
+
+</joint>
+
+<link name="box">
+
+  <!-- <visual>
+    <origin rpy="0 0 0" xyz="0 0 0.025" />
+    <geometry>
+      <box size=".1 .05 .05" />
+    </geometry>
+  </visual> -->
+
+</link>
+
 <joint name="boxconnect" type="fixed">
 
-  <origin rpy="0 3.14 0" xyz="0.026 0 -0.3" />
+  <!-- <origin rpy="0 3.14 0" xyz="0.026 0 -0.3" /> -->
   <parent link="rod"/>
   <child link="box"/>
   
