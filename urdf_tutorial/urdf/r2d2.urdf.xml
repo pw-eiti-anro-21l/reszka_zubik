@@ -83,6 +83,13 @@
 </joint>
 
 <link name="rod">
+
+  <visual>
+    <origin rpy="0 0 0" xyz="0.026 0 0.0" />
+    <geometry>
+      <box size=".05 .1 0.6" />
+    </geometry>
+  </visual>
   <!-- <inertial>
     <mass value="1"/>
     <inertia ixx="100" ixy="0" ixz="0" iyy="100" iyz="0" izz="100" />
@@ -108,14 +115,21 @@
 </link>
 
 <joint name="periscope" type="prismatic">
-  <!-- <origin xyz=".12 0 .15" /> -->
-  <axis xyz="0 0 1" />
-  <limit upper="0" lower="-.5" effort="10" velocity="10" />
+  <origin xyz=".545 0 0.05" />
+  <!-- <axis xyz="0 0 1" /> -->
   <parent link="head"/>
   <child link="rod"/>
+  <limit upper="0" lower="-.5" effort="10" velocity="10" />
 </joint>
 
 <link name="box">
+
+  <visual>
+    <origin rpy="0 0 0" xyz="0 0 0.025" />
+    <geometry>
+      <box size=".1 .05 .05" />
+    </geometry>
+  </visual>
   <!-- <inertial>
     <mass value="1"/>
     <inertia ixx="100" ixy="0" ixz="0" iyy="100" iyz="0" izz="100" />
@@ -141,7 +155,7 @@
 </link>
 
 <joint name="boxconnect" type="fixed">
-  <!-- <origin xyz="0 0 0" /> -->
+  <origin rpy="0 3.14 0" xyz="0.026 0 -0.3" />
   <parent link="rod"/>
   <child link="box"/>
 </joint>
