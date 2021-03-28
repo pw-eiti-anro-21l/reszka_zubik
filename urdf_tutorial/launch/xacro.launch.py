@@ -8,7 +8,7 @@ from launch_ros.actions import Node
 def generate_launch_description():
 
   use_sim_time = LaunchConfiguration('use_sim_time', default='false')
-  urdf_file_name = 'r2d2_move.urdf.xacro'
+  urdf_file_name = 'r2d2.urdf.xacro'
 
   print("urdf_file_name : {}".format(urdf_file_name))
 
@@ -34,6 +34,6 @@ def generate_launch_description():
       Node(
           package='urdf_tutorial',
           executable='state_publisher',
-          name='state_publishermove',
+          name='state_publisher',
           output='screen'),
   ])
