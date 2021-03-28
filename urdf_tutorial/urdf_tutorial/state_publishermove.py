@@ -23,17 +23,17 @@ class StatePublisher(Node):
       loop_rate = self.create_rate(30)
 
       # robot state
-      tilt = 0.
+      wristconnect = 0.1
       tinc = degree
-      swivel = 0.
-      angle = 0.
-      height = 0.
-      hinc = 0.005
+      end = 0.1
+      angle = 0.1
+      height = 0.1
+      hinc = 0.1
 
       # message declarations
       odom_trans = TransformStamped()
       odom_trans.header.frame_id = 'odom'
-      odom_trans.child_frame_id = 'axis'
+      odom_trans.child_frame_id = 'base'
       joint_state = JointState()
 
       try:
@@ -43,30 +43,30 @@ class StatePublisher(Node):
               # update joint_state
               now = self.get_clock().now()
               joint_state.header.stamp = now.to_msg()
-              joint_state.name = ['legconnect1', 'tilt', 'legconnect2']
-              joint_state.position = [swivel, tilt, height]
+              joint_state.name = ['arm1connect', 'wristconnect', 'arm2connect']
+              joint_state.position = [end, wristconnect, height]
 
-              # update transform
-              # (moving in a circle with radius=2)
-              odom_trans.header.stamp = now.to_msg()
-              odom_trans.transform.translation.x = cos(angle)*2
-              odom_trans.transform.translation.y = sin(angle)*2
-              odom_trans.transform.translation.z = 0.7
-              odom_trans.transform.rotation = \
-                  euler_to_quaternion(0, 0, angle + pi/2) # roll,pitch,yaw
+              # # update transform
+              # # (moving in a circle with radius=2)
+              # odom_trans.header.stamp = now.to_msg()
+              # odom_trans.transform.translation.x = cos(angle)*2
+              # odom_trans.transform.translation.y = sin(angle)*2
+              # odom_trans.transform.translation.z = 0.7
+              # odom_trans.transform.rotation = \
+              #     euler_to_quaternion(0, 0, angle + pi/2) # roll,pitch,yaw
 
               # send the joint state and transform
               self.joint_pub.publish(joint_state)
               self.broadcaster.sendTransform(odom_trans)
 
               #Create new robot state
-              tilt += tinc
-              if tilt < -0.5 or tilt > 0.0:
+              wristconnect += tinc
+              if wristconnect < -0.5 or wristconnect > 0.0:
                   tinc *= -1
               height += hinc
               if height > 0.2 or height < 0.0:
                   hinc *= -1
-              swivel += degree
+              end += degree
               angle += degree/4
 
               # This will adjust as needed per iteration

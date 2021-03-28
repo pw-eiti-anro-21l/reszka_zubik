@@ -1,7 +1,7 @@
 
 <robot name="r2d2">
 
-<link name="axis">
+<link name="base">
 
   <visual>
   <origin rpy="0 0 0" xyz="0 0 .6" />
@@ -12,7 +12,7 @@
 
 </link>
 
-<link name="leg1">
+<link name="arm1">
 
   <visual>
     <origin rpy="0 1.5708 0" xyz="0.5 0 0.05" />
@@ -23,16 +23,16 @@
 
 </link>
 
-<joint name="leg1connect" type="continuous">
+<joint name="arm1connect" type="continuous">
 
   <origin xyz="0 0 1.2" />
-  <axis xyz="0 0 1"/>
-  <parent link="axis"/>
-  <child link="leg1"/>
+  <base xyz="0 0 1"/>
+  <parent link="base"/>
+  <child link="arm1"/>
 
 </joint>
 
-<link name="leg2">
+<link name="arm2">
 
   <visual>
     <origin rpy="0 1.5708 0" xyz="0.3 0 0.05" />
@@ -43,16 +43,16 @@
 
 </link>
 
-<joint name="leg2connect" type="continuous">
+<joint name="arm2connect" type="continuous">
 
   <origin xyz="1 0 0" />
-  <axis xyz="0 0 1"/>
-  <parent link="leg1"/>
-  <child link="leg2"/>
+  <base xyz="0 0 1"/>
+  <parent link="arm1"/>
+  <child link="arm2"/>
 
 </joint>
 
-<link name="body">
+<link name="wrist">
 
   <visual>
     <origin rpy="0 0 0" xyz="-0.025 0 -0.15" />
@@ -63,16 +63,16 @@
 
 </link>
 
-<joint name="tilt" type="prismatic">
+<joint name="wristconnect" type="prismatic">
 
   <origin rpy="0 3.14 0" xyz="0.6 0 0" />
   <limit effort="1000.0" lower="-0.3" upper="0" velocity="0.5"/>
-  <parent link="leg2"/>
-  <child link="body"/>
+  <parent link="arm2"/>
+  <child link="wrist"/>
   
 </joint>
 
-<link name="head">
+<link name="gripper">
 
   <visual>
     <origin rpy="0 0 0" xyz="0 0 0.025" />
@@ -83,11 +83,11 @@
 
 </link>
 
-<joint name="swivel"  type="fixed">
+<joint name="end"  type="fixed">
 
   <origin rpy="0 0 0" xyz="0 0 0" />
-  <parent link="body"/>
-  <child link="head"/>
+  <parent link="wrist"/>
+  <child link="gripper"/>
 
 </joint>
 
@@ -105,7 +105,7 @@
 <joint name="periscope"  type="fixed">
 
   <!-- <origin xyz=".545 0 0.05" /> -->
-  <parent link="head"/>
+  <parent link="gripper"/>
   <child link="rod"/>
 
 </joint>

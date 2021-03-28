@@ -50,17 +50,17 @@ Visualization Manager:
       Frame Timeout: 15
       Frames:
         All Enabled: true
-        axis:
+        base:
           Value: true
-        body:
+        wrist:
           Value: true
         box:
           Value: true
-        head:
+        gripper:
           Value: true
-        leg1:
+        arm1:
           Value: true
-        leg2:
+        arm2:
           Value: true
         odom:
           Value: true
@@ -73,15 +73,15 @@ Visualization Manager:
       Show Names: false
       Tree:
         odom:
-          axis:
-            body:
-              head:
+          base:
+            wrist:
+              gripper:
                 rod:
                   box:
                     {}
-            leg1:
+            arm1:
               {}
-            leg2:
+            arm2:
               {}
       Update Interval: 0
       Value: true
@@ -103,12 +103,12 @@ Visualization Manager:
         Expand Link Details: false
         Expand Tree: false
         Link Tree Style: Links in Alphabetic Order
-        axis:
+        base:
           Alpha: 1
           Show Axes: false
           Show Trail: false
           Value: true
-        body:
+        wrist:
           Alpha: 1
           Show Axes: false
           Show Trail: false
@@ -118,17 +118,17 @@ Visualization Manager:
           Show Axes: false
           Show Trail: false
           Value: true
-        head:
+        gripper:
           Alpha: 1
           Show Axes: false
           Show Trail: false
           Value: true
-        leg1:
+        arm1:
           Alpha: 1
           Show Axes: false
           Show Trail: false
           Value: true
-        leg2:
+        arm2:
           Alpha: 1
           Show Axes: false
           Show Trail: false
@@ -198,7 +198,7 @@ Visualization Manager:
         Z: 0
       Focal Shape Fixed Size: true
       Focal Shape Size: 0.05000000074505806
-      Invert Z Axis: false
+      Invert Z base: false
       Name: Current View
       Near Clip Distance: 0.009999999776482582
       Pitch: 0.459797203540802
