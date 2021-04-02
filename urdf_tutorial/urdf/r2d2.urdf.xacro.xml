@@ -1,8 +1,5 @@
-<?xml version="1.0" ?>
+<?xml version="1.0"?>
 <robot xmlns:xacro="http://ros.org/wiki/xacro" name="r2d2">
-
-<xacro:property name="base_width" value="0.2" />
-<xacro:property name="base_height" value="1.2" />
 
 <material name="white">
     <color rgba="1 1 1 1"/>
@@ -26,7 +23,6 @@
 
     <material name="grey"/>
 
-
   </visual>
 
 </link>
@@ -38,7 +34,6 @@
     <geometry>
       <box size=".1 .18 1" />
     </geometry>
-
     <material name="white"/>
   </visual>
 
@@ -52,7 +47,6 @@
 
 </joint>
 
-<!-- arm2 -->
 <link name="arm2">
 
   <visual>
@@ -81,7 +75,6 @@
     <geometry>
       <box size=".05 .1 0.3" />
     </geometry>
-
     <material name="black"/>
   </visual>
 
@@ -109,7 +102,6 @@
 
 </link>
 
-<!-- co to? -->
 <joint name="end"  type="fixed">
 
   <origin rpy="0 0 0" xyz="0 0 0" />

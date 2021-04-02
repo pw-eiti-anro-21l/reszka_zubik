@@ -1,18 +1,32 @@
-<robot name="r2d2">
+<?xml version="1.0"?>
+<robot xmlns:xacro="http://ros.org/wiki/xacro" name="r2d2">
 
-<!-- base -->
+<material name="white">
+    <color rgba="1 1 1 1"/>
+</material>
+
+<material name="grey">
+    <color rgba=".2 .2 .2 1" />
+</material>
+
+<material name="black">
+    <color rgba="0 0 0 1"/>
+</material>
+
 <link name="base"> 
 
   <visual>
-  <origin rpy="0 0 0" xyz="0 0 .6" />
+  <origin rpy="0 0 0" xyz="0 0 0.6" />
     <geometry>
       <cylinder radius="0.2" length="1.2" />
     </geometry>
+
+    <material name="grey"/>
+
   </visual>
 
 </link>
 
-<!-- arm1 -->
 <link name="arm1">
 
   <visual>
@@ -20,19 +34,19 @@
     <geometry>
       <box size=".1 .18 1" />
     </geometry>
+    <material name="white"/>
   </visual>
 
 </link>
 
-<joint name="arm1connect" type="fixed">
-
+<joint name="arm1connect" type="continuous">
+  <axis xyz="0 0 1"/>
   <origin xyz="0 0 1.2" />
   <parent link="base"/>
   <child link="arm1"/>
 
 </joint>
 
-<!-- arm2 -->
 <link name="arm2">
 
   <visual>
@@ -40,12 +54,15 @@
     <geometry>
       <box size=".1 .15 0.6" />
     </geometry>
+
+    <material name="white"/>
   </visual>
 
 </link>
 
-<joint name="arm2connect" type="fixed">
+<joint name="arm2connect" type="continuous">
 
+  <axis xyz="0 0 1"/>
   <origin xyz="1 0 0" />
   <parent link="arm1"/>
   <child link="arm2"/>
@@ -59,12 +76,15 @@
     <geometry>
       <box size=".05 .1 0.3" />
     </geometry>
+    <material name="black"/>
   </visual>
 
 </link>
 
-<joint name="wristconnect" type="fixed">
-
+<joint name="wristconnect" type="prismatic">
+  
+  <axis xyz="0 0 1"/>
+  <limit effort="1000.0" lower="-0.1" upper="0.1" velocity="0.5"/>
   <origin rpy="0 3.14 0" xyz="0.6 0 0" />
   <parent link="arm2"/>
   <child link="wrist"/>
@@ -88,45 +108,9 @@
   <parent link="wrist"/>
   <child link="gripper"/>
 
-</joint>
-
-<link name="rod">
-
-  <!-- <visual>
-    <origin rpy="0 0 0" xyz="0.026 0 0.0" />
-    <geometry>
-      <box size=".05 .1 0.6" />
-    </geometry>
-  </visual> -->
-
-</link>
-
-<joint name="periscope"  type="fixed">
-
-  <!-- <origin xyz=".545 0 0.05" /> -->
-  <parent link="gripper"/>
-  <child link="rod"/>
+  <material name="grey"/>
 
 </joint>
-
-<link name="box">
-
-  <!-- <visual>
-    <origin rpy="0 0 0" xyz="0 0 0.025" />
-    <geometry>
-      <box size=".1 .05 .05" />
-    </geometry>
-  </visual> -->
-
-</link>
-
-<joint name="boxconnect" type="fixed">
-
-  <!-- <origin rpy="0 3.14 0" xyz="0.026 0 -0.3" /> -->
-  <parent link="rod"/>
-  <child link="box"/>
-  
-</joint>
-
 
 </robot>
+
