@@ -98,7 +98,9 @@
     <geometry>
       <box size=".1 .05 .05" />
     </geometry>
+    <material name="grey"/>
   </visual>
+    
 
 </link>
 
@@ -108,7 +110,7 @@
   <parent link="wrist"/>
   <child link="gripper"/>
 
-  <material name="grey"/>
+
 
 </joint>
 
