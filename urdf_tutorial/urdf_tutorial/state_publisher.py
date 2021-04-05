@@ -47,10 +47,13 @@ class StatePublisher(Node):
               joint_state.name = ['arm1connect', 'arm2connect', 'wristconnect']
               joint_state.position = [arm1connect, arm2connect, wristconnect]
 
+<<<<<<< HEAD
 
               end = cos(angle)
               wristconnect = cos(angle)
               height = cos(angle)
+=======
+>>>>>>> 3a2fb50d73a21983cbcda3586bd9f4e4f1266e23
 
               # update transform
               # to sprawia, ze calosc robota sie przesujwa, ale u nas chyba nie ma takiej potrzeby
