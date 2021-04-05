@@ -31,6 +31,6 @@ def generate_launch_description():
       Node(
           package='urdf_tutorial',
           executable='state_publisher',
-          name='state_publishermove',
+          name='state_publisher',
           output='screen'),
   ])

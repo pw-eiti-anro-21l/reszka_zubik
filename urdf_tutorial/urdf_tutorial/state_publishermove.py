@@ -23,12 +23,12 @@ class StatePublisher(Node):
       loop_rate = self.create_rate(30)
 
       # robot state
-      wristconnect = 0.1
-      tinc = degree
-      end = 0.1
-      angle = 0.1
-      height = 0.1
-      hinc = 0.1
+      # wristconnect = 0.
+      # tinc = degree
+      end = 0.
+      # angle = 0.
+      # height = 0.
+      # hinc = 0.005
 
       # message declarations
       odom_trans = TransformStamped()
@@ -43,31 +43,32 @@ class StatePublisher(Node):
               # update joint_state
               now = self.get_clock().now()
               joint_state.header.stamp = now.to_msg()
-              joint_state.name = ['arm1connect', 'wristconnect', 'arm2connect']
-              joint_state.position = [end, wristconnect, height]
+              joint_state.name = ['arm1connect']
+              joint_state.position = [end]
 
-              # # update transform
-              # # (moving in a circle with radius=2)
-              # odom_trans.header.stamp = now.to_msg()
-              # odom_trans.transform.translation.x = cos(angle)*2
-              # odom_trans.transform.translation.y = sin(angle)*2
-              # odom_trans.transform.translation.z = 0.7
-              # odom_trans.transform.rotation = \
-              #     euler_to_quaternion(0, 0, angle + pi/2) # roll,pitch,yaw
+              joint_state.position[0] = 5.0
+              # update transform
+              # (moving in a circle with radius=2)
+              odom_trans.header.stamp = now.to_msg()
+              odom_trans.transform.translation.x = 0.0
+              odom_trans.transform.translation.y = 0.0
+              odom_trans.transform.translation.z = 0.0
+              odom_trans.transform.rotation = \
+                  euler_to_quaternion(0, 0, 0.0) # roll,pitch,yaw
 
               # send the joint state and transform
               self.joint_pub.publish(joint_state)
               self.broadcaster.sendTransform(odom_trans)
 
-              #Create new robot state
-              wristconnect += tinc
-              if wristconnect < -0.5 or wristconnect > 0.0:
-                  tinc *= -1
-              height += hinc
-              if height > 0.2 or height < 0.0:
-                  hinc *= -1
-              end += degree
-              angle += degree/4
+              # Create new robot state
+              # wristconnect += tinc
+              # if wristconnect < -0.5 or wristconnect > 0.0:
+              #     tinc *= -1
+              # height += hinc
+              # if height > 0.2 or height < 0.0:
+              #     hinc *= -1
+              # end += degree
+              # angle += degree/4
 
               # This will adjust as needed per iteration
               loop_rate.sleep()

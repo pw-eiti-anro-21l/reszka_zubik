@@ -1,7 +1,7 @@
-
 <robot name="r2d2">
 
-<link name="base">
+<!-- base -->
+<link name="base"> 
 
   <visual>
   <origin rpy="0 0 0" xyz="0 0 .6" />
@@ -12,6 +12,7 @@
 
 </link>
 
+<!-- arm1 -->
 <link name="arm1">
 
   <visual>
@@ -25,13 +26,15 @@
 
 <joint name="arm1connect" type="continuous">
 
+
+  <axis xyz="0 0 1" />
   <origin xyz="0 0 1.2" />
-  <base xyz="0 0 1"/>
   <parent link="base"/>
   <child link="arm1"/>
 
 </joint>
 
+<!-- arm2 -->
 <link name="arm2">
 
   <visual>
@@ -43,10 +46,9 @@
 
 </link>
 
-<joint name="arm2connect" type="continuous">
+<joint name="arm2connect" type="fixed">
 
   <origin xyz="1 0 0" />
-  <base xyz="0 0 1"/>
   <parent link="arm1"/>
   <child link="arm2"/>
 
@@ -63,10 +65,9 @@
 
 </link>
 
-<joint name="wristconnect" type="prismatic">
+<joint name="wristconnect" type="fixed">
 
   <origin rpy="0 3.14 0" xyz="0.6 0 0" />
-  <limit effort="1000.0" lower="-0.3" upper="0" velocity="0.5"/>
   <parent link="arm2"/>
   <child link="wrist"/>
   

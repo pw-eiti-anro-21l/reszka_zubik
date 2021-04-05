@@ -43,8 +43,12 @@ class StatePublisher(Node):
               # update joint_state
               now = self.get_clock().now()
               joint_state.header.stamp = now.to_msg()
-              joint_state.name = ['end', 'wristconnect', 'periscope']
+              joint_state.name = ['arm1connect', 'wristconnect', 'periscope']
               joint_state.position = [end, wristconnect, height]
+
+              end = cos(angle)
+              wristconnect = cos(angle)
+              height = cos(angle)
 
               # update transform
               # (moving in a circle with radius=2)
@@ -67,7 +71,7 @@ class StatePublisher(Node):
               # if height > 0.2 or height < 0.0:
               #     hinc *= -1
               # end += degree
-              # angle += degree/4
+              angle += degree/4
 
               # This will adjust as needed per iteration
               loop_rate.sleep()
