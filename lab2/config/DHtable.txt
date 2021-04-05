@@ -1,0 +1,5 @@
+a  d  aplha  thetha  name
+0  0.4  0      x     base
+0  0  -1.57  x      base_ext
+1  0  0      x      arm
+0.70  0      0      hand
