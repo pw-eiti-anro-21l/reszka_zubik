@@ -1,66 +1,59 @@
 <?xml version="1.0"?>
 <robot xmlns:xacro="http://ros.org/wiki/xacro" name="r2d2">
 
-<!-- loading param dict from yaml file -->
-<xacro:property name="filename" value="$(find package)/urdf_tutorial/dh.yaml"/>
-<xacro:property name="params" value="${load_yaml(${filename})}"/>
+<xacro:property name="filename" value="$(find urdf_tutorial)/urdf_tutorial/dh.yaml"/>
+<!-- ogarnac wzgledna sciezke!!! -->
+<xacro:property name="params" value="${load_yaml('/home/parallels/anro_ws/src/anro-reszka_zubik/urdf_tutorial/urdf_tutorial/dh.yaml')}"/>
 
-<!-- declaring properties -->
-<!-- base -->
 <xacro:property name="base_len" value="${params['base']['length']}" />
 <xacro:property name="base_radius" value="${params['base']['radius']}" />
 <xacro:property name="base_x" value="${params['base']['xyz']['x']}" />
 <xacro:property name="base_y" value="${params['base']['xyz']['y']}" />
-<xacro:property name="base_x" value="${params['base']['xyz']['z']}" />
+<xacro:property name="base_z" value="${params['base']['xyz']['z']}" />
 <xacro:property name="base_r" value="${params['base']['rpy']['r']}" />
 <xacro:property name="base_p" value="${params['base']['rpy']['p']}" />
 <xacro:property name="base_yaw" value="${params['base']['rpy']['y']}" />
 
-<!-- arm1 -->
 <xacro:property name="arm1_size_x" value="${params['arm1']['size']['x']}" />
 <xacro:property name="arm1_size_y" value="${params['arm1']['size']['y']}" />
 <xacro:property name="arm1_size_z" value="${params['arm1']['size']['z']}" />
 <xacro:property name="arm1_x" value="${params['arm1']['xyz']['x']}" />
 <xacro:property name="arm1_y" value="${params['arm1']['xyz']['y']}" />
-<xacro:property name="arm1_x" value="${params['arm1']['xyz']['z']}" />
+<xacro:property name="arm1_z" value="${params['arm1']['xyz']['z']}" />
 <xacro:property name="arm1_r" value="${params['arm1']['rpy']['r']}" />
 <xacro:property name="arm1_p" value="${params['arm1']['rpy']['p']}" />
 <xacro:property name="arm1_yaw" value="${params['arm1']['rpy']['y']}" />
 
-<!-- arm2 -->
 <xacro:property name="arm2_size_x" value="${params['arm2']['size']['x']}" />
 <xacro:property name="arm2_size_y" value="${params['arm2']['size']['y']}" />
 <xacro:property name="arm2_size_z" value="${params['arm2']['size']['z']}" />
 <xacro:property name="arm2_x" value="${params['arm2']['xyz']['x']}" />
 <xacro:property name="arm2_y" value="${params['arm2']['xyz']['y']}" />
-<xacro:property name="arm2_x" value="${params['arm2']['xyz']['z']}" />
+<xacro:property name="arm2_z" value="${params['arm2']['xyz']['z']}" />
 <xacro:property name="arm2_r" value="${params['arm2']['rpy']['r']}" />
 <xacro:property name="arm2_p" value="${params['arm2']['rpy']['p']}" />
 <xacro:property name="arm2_yaw" value="${params['arm2']['rpy']['y']}" />
 
-<!-- wrist -->
 <xacro:property name="wrist_size_x" value="${params['wrist']['size']['x']}" />
 <xacro:property name="wrist_size_y" value="${params['wrist']['size']['y']}" />
 <xacro:property name="wrist_size_z" value="${params['wrist']['size']['z']}" />
 <xacro:property name="wrist_x" value="${params['wrist']['xyz']['x']}" />
 <xacro:property name="wrist_y" value="${params['wrist']['xyz']['y']}" />
-<xacro:property name="wrist_x" value="${params['wrist']['xyz']['z']}" />
+<xacro:property name="wrist_z" value="${params['wrist']['xyz']['z']}" />
 <xacro:property name="wrist_r" value="${params['wrist']['rpy']['r']}" />
 <xacro:property name="wrist_p" value="${params['wrist']['rpy']['p']}" />
-<xacro:property name="wrist_yaw" value="${params['wrist]['rpy']['y']}" />
+<xacro:property name="wrist_yaw" value="${params['wrist']['rpy']['y']}" />
 
-<!-- gripper -->
 <xacro:property name="gripper_size_x" value="${params['gripper']['size']['x']}" />
 <xacro:property name="gripper_size_y" value="${params['gripper']['size']['y']}" />
 <xacro:property name="gripper_size_z" value="${params['gripper']['size']['z']}" />
 <xacro:property name="gripper_x" value="${params['gripper']['xyz']['x']}" />
 <xacro:property name="gripper_y" value="${params['gripper']['xyz']['y']}" />
-<xacro:property name="gripper_x" value="${params['gripper']['xyz']['z']}" />
+<xacro:property name="gripper_z" value="${params['gripper']['xyz']['z']}" />
 <xacro:property name="gripper_r" value="${params['gripper']['rpy']['r']}" />
 <xacro:property name="gripper_p" value="${params['gripper']['rpy']['p']}" />
 <xacro:property name="gripper_yaw" value="${params['gripper']['rpy']['y']}" />
 
-<!-- declaring materials -->
 <material name="white">
     <color rgba="1 1 1 1"/>
 </material>
