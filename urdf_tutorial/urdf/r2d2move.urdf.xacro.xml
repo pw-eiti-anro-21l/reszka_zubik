@@ -98,6 +98,7 @@
     <geometry>
       <box size=".1 .05 .05" />
     </geometry>
+    <material name="black"/>
   </visual>
 
 </link>

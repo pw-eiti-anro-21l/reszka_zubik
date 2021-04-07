@@ -45,18 +45,23 @@ def get_z_sign(item):
         #alfa od 270 do 360
         return 1
 
-# def rotate_coordinates(coor_list):
-#     alfa = item['alfa']
-#     if alfa == 0:
-#         coor_list[0], coor_list[1] = coor_list[1], coor_list[0]
-#     elif alfa == 1.5708:
-#         coo
-
-#     elif alfa ==3.14:
-
-#     elif alfa == 4.7124:
-
-#     else:
+def rotate_coordinates(item,coor_list):
+    alfa = item['alfa']
+    if(len(item) == 5):
+        #its a box
+        if alfa == 0:
+            coor_list[0], coor_list[1] = coor_list[1], coor_list[0]
+        elif alfa == 1.5708:
+            coor_list[0], coor_list[1] = coor_list[1], coor_list[0]
+        elif alfa ==3.14:
+            coor_list[0], coor_list[1] = coor_list[0], coor_list[1]
+        elif alfa == 4.7124:
+            coor_list[0], coor_list[1] = coor_list[0], coor_list[1]
+        else:
+            coor_list[0], coor_list[1] = coor_list[1], coor_list[0]
+        return coor_list
+    else:
+        return coor_list
 
 
 def get_geometric_center(item):
@@ -73,13 +78,11 @@ def get_geometric_center(item):
     elif len(item) == 5 and alfa == 0:
         #coordinates of box in home coordinates swap z with z 
         measures = item['size']
-        return [x_sign*measures['z']/2,z_sign*measures['x']/2 ]
+        return [x_sign*measures['x']/2,z_sign*measures['z']/2 ]
     else:
         #both x and z axiz changes directions -> -
         measures = item['size']
         return [x_sign*measures['x']/2,z_sign*measures['z']/2 ]
-
-
 
 
 def convert(jsonfile):
@@ -91,7 +94,11 @@ def convert(jsonfile):
 
 
     for item in data.values():
-        a,d = get_geometric_center(item)
+        alfa = item['alfa']
+
+        a,d = rotate_coordinates(item,get_geometric_center(item))
+
+        print(rotate_coordinates(item,get_geometric_center(item)))
         
         item['a'] = a
         item['d'] = d
@@ -128,7 +135,6 @@ def write_yaml(data, filename):
 if __name__ == "__main__":
     data = convert("dh.json")
     write_yaml(data, "dh.yaml")
-
 
 
 

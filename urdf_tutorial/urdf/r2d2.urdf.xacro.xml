@@ -3,7 +3,7 @@
 
 <xacro:property name="filename" value="$(find urdf_tutorial)/urdf_tutorial/dh.yaml"/>
 <!-- ogarnac wzgledna sciezke!!! -->
-<xacro:property name="params" value="${load_yaml('/home/parallels/anro_ws/src/anro-reszka_zubik/urdf_tutorial/urdf_tutorial/dh.yaml')}"/>
+<xacro:property name="params" value="${load_yaml('/home/lena/anro/src/reszka_zubik/urdf_tutorial/urdf_tutorial/dh.yaml')}"/>
 
 <xacro:property name="base_len" value="${params['base']['length']}" />
 <xacro:property name="base_radius" value="${params['base']['radius']}" />
@@ -83,7 +83,7 @@
 <link name="arm1">
 
   <visual>
-    <origin rpy="${arm1_r} ${arm1_p} ${arm1_yaw}" xyz="${arm1_x} ${arm1_y} ${arm1_z}" />
+    <origin rpy="${arm1_r} ${arm1_p+1.5708} ${arm1_yaw}" xyz="${arm1_x} ${arm1_y} ${arm1_z}" />
     <geometry>
       <box size="${arm1_size_x} ${arm1_size_y} ${arm1_size_z}" />
     </geometry>
@@ -94,7 +94,7 @@
 
 <joint name="arm1connect" type="fixed">
 
-  <origin xyz="0 0 1.2" />
+  <origin xyz="0 0 ${2*base_z}" />
   <parent link="base"/>
   <child link="arm1"/>
 
@@ -103,7 +103,7 @@
 <link name="arm2">
 
   <visual>
-    <origin rpy="${arm2_r} ${arm2_p} ${arm2_yaw}" xyz="${arm2_x} ${arm2_y} ${arm2_z}" />
+    <origin rpy="${arm2_r} ${arm2_p+1.5708} ${arm2_yaw}" xyz="${arm2_x} ${arm2_y} ${arm2_z}" />
     <geometry>
       <box size="${arm2_size_x} ${arm2_size_y} ${arm2_size_z}" />
     </geometry>
@@ -115,7 +115,7 @@
 
 <joint name="arm2connect" type="fixed">
 
-  <origin xyz="1 0 0" />
+  <origin xyz="${2*arm1_x} 0 0" />
   <parent link="arm1"/>
   <child link="arm2"/>
 
@@ -135,7 +135,7 @@
 
 <joint name="wristconnect" type="fixed">
 
-  <origin rpy="0 3.14 0" xyz="0.6 0 0" />
+  <origin rpy="0 ${wrist_p} 0" xyz="${2*arm2_x} 0 0" />
   <parent link="arm2"/>
   <child link="wrist"/>
   
@@ -148,9 +148,7 @@
     <geometry>
       <box size="${gripper_size_x} ${gripper_size_y} ${gripper_size_z}" />
     </geometry>
-
-    <material name="grey"/>
-
+    <material name="red"/>
   </visual>
 
 </link>
