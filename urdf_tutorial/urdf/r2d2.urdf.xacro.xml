@@ -1,9 +1,8 @@
 <?xml version="1.0"?>
 <robot xmlns:xacro="http://ros.org/wiki/xacro" name="r2d2">
 
-<xacro:property name="filename" value="$(find urdf_tutorial)/urdf_tutorial/dh.yaml"/>
-<!-- ogarnac wzgledna sciezke!!! -->
-<xacro:property name="params" value="${load_yaml('/home/lena/anro/src/reszka_zubik/urdf_tutorial/urdf_tutorial/dh.yaml')}"/>
+<xacro:property name="filename" value="$(find urdf_tutorial)/dh.yaml"/>
+<xacro:property name="params" value="${load_yaml(filename)}"/>
 
 <xacro:property name="base_len" value="${params['base']['length']}" />
 <xacro:property name="base_radius" value="${params['base']['radius']}" />
@@ -142,13 +141,12 @@
 </joint>
 
 <link name="gripper">
-
   <visual>
     <origin rpy="${gripper_r} ${gripper_p} ${gripper_yaw}" xyz="${gripper_x} ${gripper_y} ${gripper_z}" />
     <geometry>
       <box size="${gripper_size_x} ${gripper_size_y} ${gripper_size_z}" />
     </geometry>
-    <material name="red"/>
+    <material name="grey"/>
   </visual>
 
 </link>
