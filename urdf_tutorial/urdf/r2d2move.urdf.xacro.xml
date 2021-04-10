@@ -112,8 +112,9 @@
 
 </link>
 
-<joint name="arm2connect" type="continuous">
+<joint name="arm2connect" type="revolute">
   <axis xyz="0 0 1"/>
+  <limit effort="1000.0" lower="-1.0" upper="6.1" velocity="0.5"/>
   <origin xyz="${2*arm1_x} 0 0" />
   <parent link="arm1"/>
   <child link="arm2"/>
@@ -135,7 +136,7 @@
 <joint name="wristconnect" type="prismatic">
 
   <axis xyz="0 0 1"/>
-  <limit effort="1000.0" lower="-0.1" upper="0.1" velocity="0.5"/>
+  <limit effort="1000.0" lower="${-wrist_z/2}" upper="${-wrist_z/2}" velocity="0.5"/>
   <origin rpy="0 ${wrist_p} 0" xyz="${2*arm2_x} 0 0" />
   <parent link="arm2"/>
   <child link="wrist"/>
@@ -145,7 +146,7 @@
 <link name="gripper">
 
   <visual>
-    <origin rpy="${gripper_r} ${gripper_p} ${gripper_yaw}" xyz="${gripper_x} ${gripper_y} ${gripper_z}" />
+    <origin rpy="${gripper_r} ${gripper_p} ${gripper_yaw}" xyz="${-gripper_x} ${gripper_y} ${gripper_z}" />
     <geometry>
       <box size="${gripper_size_x} ${gripper_size_y} ${gripper_size_z}" />
     </geometry>

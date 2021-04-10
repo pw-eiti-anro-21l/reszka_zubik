@@ -142,7 +142,7 @@
 
 <link name="gripper">
   <visual>
-    <origin rpy="${gripper_r} ${gripper_p} ${gripper_yaw}" xyz="${gripper_x} ${gripper_y} ${gripper_z}" />
+    <origin rpy="${gripper_r} ${gripper_p} ${gripper_yaw}" xyz="${-gripper_x} ${gripper_y} ${gripper_z}" />
     <geometry>
       <box size="${gripper_size_x} ${gripper_size_y} ${gripper_size_z}" />
     </geometry>

@@ -41,13 +41,13 @@ gripper:
     r: 0
     y: 0
   size:
-    x: 0.1
+    x: 0.05
     y: 0.05
     z: 0.05
   xyz:
     x: 0.025
     y: 0
-    z: 0.05
+    z: 0.025
 wrist:
   rpy:
     p: 3.14

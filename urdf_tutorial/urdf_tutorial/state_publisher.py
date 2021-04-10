@@ -67,7 +67,7 @@ class StatePublisher(Node):
                 delta *= -1
 
               arm1connect += angle1
-              if arm1connect > 1 or arm1connect < -1:
+              if arm1connect > 0.7 or arm1connect < -0.7:
                 angle1 *= -1
 
               arm2connect += angle2
