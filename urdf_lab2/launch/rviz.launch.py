@@ -8,8 +8,8 @@ from launch_ros.actions import Node
 
 def generate_launch_description():
     use_sim_time = LaunchConfiguration('use_sim_time', default='false')
-    rviz2_file_name = 'r2d2.rviz'
-    rviz2 = os.path.join(get_package_share_directory('urdf_tutorial'), rviz2_file_name)
+    rviz2_file_name = 'manip.rviz'
+    rviz2 = os.path.join(get_package_share_directory('urdf_lab2'), rviz2_file_name)
 
     return LaunchDescription([
         DeclareLaunchArgument(

@@ -1,7 +1,7 @@
 <?xml version="1.0"?>
-<robot xmlns:xacro="http://ros.org/wiki/xacro" name="r2d2">
+<robot xmlns:xacro="http://ros.org/wiki/xacro" name="manip">
 
-<xacro:property name="filename" value="$(find urdf_tutorial)/dh.yaml"/>
+<xacro:property name="filename" value="$(find urdf_lab2)/dh.yaml"/>
 <xacro:property name="params" value="${load_yaml(filename)}"/>
 
 <xacro:property name="base_len" value="${params['base']['length']}" />
@@ -91,8 +91,8 @@
 
 </link>
 
-<joint name="arm1connect" type="continuous">
-  <axis xyz="0 0 1"/>
+<joint name="arm1connect" type="fixed">
+
   <origin xyz="0 0 ${2*base_z}" />
   <parent link="base"/>
   <child link="arm1"/>
@@ -112,9 +112,8 @@
 
 </link>
 
-<joint name="arm2connect" type="revolute">
-  <axis xyz="0 0 1"/>
-  <limit effort="1000.0" lower="-1.0" upper="6.1" velocity="0.5"/>
+<joint name="arm2connect" type="fixed">
+
   <origin xyz="${2*arm1_x} 0 0" />
   <parent link="arm1"/>
   <child link="arm2"/>
@@ -133,10 +132,8 @@
 
 </link>
 
-<joint name="wristconnect" type="prismatic">
+<joint name="wristconnect" type="fixed">
 
-  <axis xyz="0 0 1"/>
-  <limit effort="1000.0" lower="${-wrist_z/2}" upper="${-wrist_z/2}" velocity="0.5"/>
   <origin rpy="0 ${wrist_p} 0" xyz="${2*arm2_x} 0 0" />
   <parent link="arm2"/>
   <child link="wrist"/>
@@ -144,7 +141,6 @@
 </joint>
 
 <link name="gripper">
-
   <visual>
     <origin rpy="${gripper_r} ${gripper_p} ${gripper_yaw}" xyz="${-gripper_x} ${gripper_y} ${gripper_z}" />
     <geometry>
@@ -164,5 +160,3 @@
 </joint>
 
 </robot>
-
-

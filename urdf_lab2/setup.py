@@ -4,7 +4,7 @@ from glob import glob
 from setuptools import setup
 from setuptools import find_packages
 
-package_name = 'urdf_tutorial'
+package_name = 'urdf_lab2'
 
 setup(
     name=package_name,
@@ -16,7 +16,7 @@ setup(
         ('share/' + package_name, ['package.xml']),
         (os.path.join('share', package_name), glob('launch/*.py')),
         (os.path.join('share', package_name), glob('urdf/*')),
-        (os.path.join('share', package_name), glob('urdf_tutorial/*.yaml'))
+        (os.path.join('share', package_name), glob('urdf_lab2/*.yaml'))
     ],
     install_requires=['setuptools'],
     zip_safe=True,
@@ -27,7 +27,7 @@ setup(
     tests_require=['pytest'],
     entry_points={
         'console_scripts': [
-        'state_publisher = urdf_tutorial.state_publisher:main'
+        'state_publisher = urdf_lab2.state_publisher:main'
         ],
     },
 )

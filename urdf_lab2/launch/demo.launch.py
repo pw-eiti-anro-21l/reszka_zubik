@@ -8,17 +8,17 @@ from launch_ros.actions import Node
 def generate_launch_description():
 
   use_sim_time = LaunchConfiguration('use_sim_time', default='false')
-  rviz_file_name = 'r2d2.rviz'
-  urdf_file_name = 'r2d2.urdf.xacro.xml'
+  rviz_file_name = 'manip.rviz'
+  urdf_file_name = 'manip.urdf.xacro.xml'
 
   print("urdf_file_name : {}".format(urdf_file_name))
 
   rviz = os.path.join(
-            get_package_share_directory('urdf_tutorial'),
+            get_package_share_directory('urdf_lab2'),
             rviz_file_name)
 
   urdf = os.path.join(
-      get_package_share_directory('urdf_tutorial'),
+      get_package_share_directory('urdf_lab2'),
       urdf_file_name)
 
   return LaunchDescription([
@@ -35,7 +35,7 @@ def generate_launch_description():
           'robot_description': Command(["xacro",' ', urdf])}]
       ),
       Node(
-          package='urdf_tutorial',
+          package='urdf_lab2',
           executable='state_publisher',
           name='state_publisher',
           output='screen'),
