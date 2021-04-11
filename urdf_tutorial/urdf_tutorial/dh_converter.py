@@ -2,14 +2,12 @@ import json
 import yaml
 import math
 
-'''
-zalozenia: 
-ruchome: arm1, arm2, wrist
-nieruchome: base, gripper
-'''
 
 def get_x_sign(item):
-    #get the sign(direction) of element coordinates with reference to last coordinate system
+    '''
+    get the sign(direction) of element coordinates 
+    with reference to last coordinate system
+    '''
     alfa = item['alfa']
 
     if alfa ==0:
@@ -29,7 +27,9 @@ def get_x_sign(item):
         return 1
 
 def get_z_sign(item):
-    #get the sign(direction) of element coordinates with reference to last coordinate system
+    '''get the sign(direction) of element coordinates 
+    with reference to last coordinate system
+    '''
     alfa = item['alfa']
     
     if alfa == 0:
@@ -49,10 +49,14 @@ def get_z_sign(item):
         return 1
 
 def rotate_coordinates(item,coor_list):
-    #rotating an element doesnt influence the position on y-axis but swaps the position of z-axis with x-axis
-    #due to the fact that y doesnt move at all and we're rotating by 90 degrees
-    #that is the function that perfoms the rotation, swaps x with z if such rotation declared
-    
+    '''
+    rotating an element doesnt influence the position on y-axis
+    swaps the position of z-axis with x-axis - 
+    due to the fact that y doesnt move at all
+    and we're rotating by 90 degrees
+    that is the function that perfoms the rotation
+    swaps x with z if such rotation declared
+    '''
     alfa = item['alfa']
     if(len(item) == 5):
         #its a box
@@ -72,8 +76,12 @@ def rotate_coordinates(item,coor_list):
 
 
 def get_geometric_center(item):
-    #due to the fact that in urdf notation we locate elements by declaring the position of theirs geometrical center,
-    #so we must get its coordinates
+    '''
+    due to the fact that in urdf notation 
+    we locate elements by declaring
+    the position of theirs geometrical center,
+    so we must get its coordinates
+    '''
 
     #assigning the values
     alfa = item['alfa']
@@ -96,6 +104,10 @@ def get_geometric_center(item):
 
 
 def convert(jsonfile):
+    ''' 
+    method converting dh matrix to rpy
+    takes data from jsonfile, returns dict
+    '''
 
     data = read_dh(jsonfile)
   
@@ -131,11 +143,18 @@ def convert(jsonfile):
 
 
 def read_dh(jsonfile):
+    ''' 
+    method reading json file
+    returns dict
+    '''
     with open(jsonfile, "r") as file:
         data = json.load(file)    
     return data
 
 def write_yaml(data, filename):
+    '''
+    method writing dict data to yaml file
+    '''
     with open(filename, "w") as yamlfile:
         yaml.dump(data, yamlfile)
 

@@ -7,8 +7,36 @@ from geometry_msgs.msg import Quaternion
 from sensor_msgs.msg import JointState
 from tf2_ros import TransformBroadcaster, TransformStamped
 class StatePublisher(Node):
+  '''
+    Class representing state_publisher node
 
+    Methods:
+    -------
+    __init__: constructor method, JointState callback function
+    euler_to_quaternion: euler to quaternion converter
+  '''
   def __init__(self):
+      '''
+      Class constructor
+      JointState callback function
+
+      Parameters:
+      -------
+      joint_pub: publisher, JointState
+        publishes joint states
+      wristconnect: float
+        wrist joint position
+      arm1connect: float
+        arm1 joint position
+      arm2connect: float
+        arm2 joint positions
+      delta: float
+        value added to change state
+      angle1: float
+        angle added to arm1
+      angle2: float
+        angle added to arm2
+      '''
       rclpy.init()
       super().__init__('state_publisher')
 
@@ -18,17 +46,15 @@ class StatePublisher(Node):
       self.nodeName = self.get_name()
       self.get_logger().info("{0} started".format(self.nodeName))
 
-      degree = pi / 180.0
       loop_rate = self.create_rate(30)
 
       # robot state
-      tinc = degree
       wristconnect = 0.1
       arm1connect = 0.
       arm2connect = 0.
       delta = 0.01
       angle1 = 0.01
-      angle2 = 0.02 # sprawic zeby ten kat byl wzgledny!!!
+      angle2 = 0.02
       
 
       # message declarations
@@ -49,7 +75,6 @@ class StatePublisher(Node):
 
 
               # update transform
-              # to sprawia, ze calosc robota sie przesujwa, ale u nas chyba nie ma takiej potrzeby
               odom_trans.header.stamp = now.to_msg()
               odom_trans.transform.translation.x = 0.
               odom_trans.transform.translation.y = 0.0
