@@ -16,7 +16,8 @@ setup(
         ('share/' + package_name, ['package.xml']),
         (os.path.join('share', package_name), glob('launch/*.py')),
         (os.path.join('share', package_name), glob('urdf/*')),
-        (os.path.join('share', package_name), glob('urdf_lab3/*.yaml'))
+        (os.path.join('share', package_name), glob('urdf_lab3/*.yaml')),
+        (os.path.join('share', package_name), glob('urdf_lab3/*.json'))
     ],
     install_requires=['setuptools'],
     zip_safe=True,
@@ -27,7 +28,8 @@ setup(
     tests_require=['pytest'],
     entry_points={
         'console_scripts': [
-        'state_publisher = urdf_lab3.state_publisher:main'
+        'state_publisher = urdf_lab3.state_publisher:main',
+        'nonkdl_dkin = urdf_lab3.nonkdl_dkin:main'
         ],
     },
 )

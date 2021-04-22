@@ -8,8 +8,7 @@ from launch_ros.actions import Node
 
 def generate_launch_description():
     use_sim_time = LaunchConfiguration('use_sim_time', default='false')
-    rviz2_file_name = 'manip.rviz'
-    rviz2 = os.path.join(get_package_share_directory('urdf_lab3'), rviz2_file_name)
+    
 
     return LaunchDescription([
         DeclareLaunchArgument(
@@ -18,15 +17,14 @@ def generate_launch_description():
             description='Use simulation (Gazebo) clock if true'),
 
         Node(
-            package='rviz2',
-            executable='rviz2',
-            name='rviz2',
-            output='screen',
+            package='urdf_lab3',
+            executable='nonkdl_dkin',
+            name='non_kdl_pose_stamped',
             parameters=[{
                 'use_sim_time': use_sim_time,
             }],
-            arguments=['-d', rviz2],
-        )
+            output='screen'
+            )
 
         
     ])

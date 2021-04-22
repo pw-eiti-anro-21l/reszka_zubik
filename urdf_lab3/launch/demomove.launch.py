@@ -34,4 +34,25 @@ def generate_launch_description():
           executable='state_publisher',
           name='state_publisher',
           output='screen'),
+      
+
+    #   Node(
+    #     package='urdf_lab3',
+    #     executable='non_kdl_dkin',
+    #     name='non_kdl_pose_stamped',
+    #     parameters=[{
+    #         'use_sim_time': use_sim_time,
+    #     }],
+    #     output='screen')
+
+          #   Node(
+    #         package='urdf_lab3',
+    #         executable='non_kdl_dkin',
+    #         name='non_kdl_pose_stamped',
+    #         parameters=[{
+    #             'use_sim_time': use_sim_time,
+    #         }],
+    #         output='screen')
+
+
   ])
