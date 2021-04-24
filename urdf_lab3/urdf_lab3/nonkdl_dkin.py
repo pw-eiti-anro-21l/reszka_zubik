@@ -8,6 +8,7 @@ from sensor_msgs.msg import JointState
 from geometry_msgs.msg import PoseStamped
 import numpy
 import json
+import os
 
 
 def read_dh(jsonfile):
@@ -26,16 +27,17 @@ class NonKdlDkin(Node):
         super().__init__('nonkdl_dkin')
        
         # load DH parameters
-        data = read_dh('dh.json')
+        data = read_dh(os.path.dirname(os.path.realpath(__file__)) + '/dh.json')
 
         self.pose_stamped = PoseStamped()
         self.arm1connect = 0.0
         self.arm2connect = 0.0
         self.wristconnect = 0.0
 
+        self.base = (data['base']['length'] - (data['wrist']['size']['z']/2) - (data['gripper']['size']['z']/2))
         self.d1 = data['arm1']['d']
-        self.a2 = data['arm2']['a']
-        self.a3 = data['wrist']['a']
+        self.a2 = data['arm1']['size']['z']
+        self.a3 = data['arm2']['size']['z']
         self.d3 = data['wrist']['d']
         self.alfa3 = data['wrist']['alfa']
 
@@ -63,7 +65,7 @@ class NonKdlDkin(Node):
         self.pose_stamped.header.stamp = now.to_msg()
         self.pose_stamped.header.frame_id = 'base'
         self.pose_pub.publish(self.pose_stamped)
-        self.rate.sleep()
+        #self.rate.sleep()
 
     def calculate_pose_stamp(self):
         
@@ -71,6 +73,7 @@ class NonKdlDkin(Node):
                            [sin(self.arm1connect), cos(self.arm1connect), 0.0, 0.0],
                            [0.0, 0.0, 1.0, self.d1],
                            [0.0, 0.0, 0.0, 1.0]])
+        #self.a2 =1
         T12 = numpy.array([[cos(self.arm2connect), -sin(self.arm2connect), 0.0, self.a2],
                            [sin(self.arm2connect), cos(self.arm2connect), 0.0, 0.0],
                            [0.0, 0.0, 1.0, 0.0],
@@ -82,6 +85,11 @@ class NonKdlDkin(Node):
                            [0.0, 0.0, 0.0, 1.0]])
 
         # T23 = numpy.array([[1.0, 0.0, 0.0, self.a3],
+        #                    [0.0, -1.0, 0.0, 0.0],
+        #                    [0.0, 0.0, -1.0, cos(self.alfa3) * (self.d3 + self.wristconnect)],
+        #                    [0.0, 0.0, 0.0, 1.0]])
+
+        # T23 = numpy.array([[1.0, 0.0, 0.0, self.a3],
         #                    [0.0, cos(self.alfa3), -sin(self.alfa3), 0.0],
         #                    [0.0, sin(self.alfa3), cos(self.alfa3), cos(self.alfa3) * (self.d3 + self.poz3)],
         #                    [0.0, 0.0, 0.0, 1.0]])
@@ -90,10 +98,11 @@ class NonKdlDkin(Node):
         P3 = numpy.array([[0.0], [0.0], [0.0], [1.0]])  # poczatek ukladu wspolrzednych
         P0 = numpy.matmul(T03, P3)
 
-        print(P0[0], P0[1], P0[2], euler_to_quaternion(*rot_to_euler(T03)))
+        #print(P0[0], P0[1], P0[2], euler_to_quaternion(*rot_to_euler(T03)))
         self.pose_stamped.pose.position.x = float(P0[0])
         self.pose_stamped.pose.position.y = float(P0[1])
-        self.pose_stamped.pose.position.z = float(P0[2])
+        #taking the height of base into consideration
+        self.pose_stamped.pose.position.z = float(P0[2])+self.base
         self.pose_stamped.pose.orientation = euler_to_quaternion(*rot_to_euler(T03))
 
 
