@@ -8,7 +8,7 @@ from sensor_msgs.msg import JointState
 from geometry_msgs.msg import PoseStamped
 import numpy
 import json
-
+import os
 
 def read_dh(jsonfile):
     ''' 
@@ -26,7 +26,7 @@ class NonKdlDkin(Node):
         super().__init__('nonkdl_dkin')
        
         # load DH parameters
-        data = read_dh('dh.json')
+        data = read_dh(os.path.dirname(os.path.realpath(__file__)) + '/dh.json')
 
         self.pose_stamped = PoseStamped()
         self.arm1connect = 0.0

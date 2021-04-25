@@ -18,12 +18,13 @@ def generate_launch_description():
 
         Node(
             package='urdf_lab3',
-            executable='nonkdl_dkin',
-            name='non_kdl_pose_stamped',
+            executable='kdl_dkin',
+            name='kdl_pose_stamped',
             parameters=[{
                 'use_sim_time': use_sim_time,
             }],
             output='screen'
             )
 
+        
     ])
