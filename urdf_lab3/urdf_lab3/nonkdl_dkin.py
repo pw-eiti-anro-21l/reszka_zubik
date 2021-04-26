@@ -213,23 +213,13 @@ class NonKdlDkin(Node):
                            [0.0, sin(self.alfa3), cos(self.alfa3), cos(self.alfa3) * (self.d3 + self.wristconnect)],
                            [0.0, 0.0, 0.0, 1.0]])
 
-        # T23 = numpy.array([[1.0, 0.0, 0.0, self.a3],
-        #                    [0.0, -1.0, 0.0, 0.0],
-        #                    [0.0, 0.0, -1.0, cos(self.alfa3) * (self.d3 + self.wristconnect)],
-        #                    [0.0, 0.0, 0.0, 1.0]])
-
-        # T23 = numpy.array([[1.0, 0.0, 0.0, self.a3],
-        #                    [0.0, cos(self.alfa3), -sin(self.alfa3), 0.0],
-        #                    [0.0, sin(self.alfa3), cos(self.alfa3), cos(self.alfa3) * (self.d3 + self.poz3)],
-        #                    [0.0, 0.0, 0.0, 1.0]])
-
         T03 = numpy.matmul(T01, numpy.matmul(T12, T23))
         P3 = numpy.array([[0.0], [0.0], [0.0], [1.0]])  # poczatek ukladu wspolrzednych
         P0 = numpy.matmul(T03, P3)
 
-        #print(P0[0], P0[1], P0[2], euler_to_quaternion(*rot_to_euler(T03)))
         self.pose_stamped.pose.position.x = float(P0[0])
         self.pose_stamped.pose.position.y = float(P0[1])
+
         #taking the height of base into consideration
         self.pose_stamped.pose.position.z = float(P0[2])+self.base
         self.pose_stamped.pose.orientation = euler_to_quaternion(*rot_to_euler(T03))

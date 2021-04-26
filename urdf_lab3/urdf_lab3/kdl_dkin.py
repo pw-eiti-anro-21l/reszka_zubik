@@ -28,12 +28,9 @@ class KdlDkin(Node):
         self.pose_pub = self.create_publisher(PoseStamped, 'pose_stamped_kdl', qos_profile)
         self.joint_state = self.create_subscription(JointState, 'joint_states', self.listener_callback, 10)
 
-
-        #self.broadcaster = TransformBroadcaster(self, qos=qos_profile)
         self.nodeName = self.get_name()
         self.get_logger().info("{0} started".format(self.nodeName))
 
-        # rate
         self.rate = self.create_rate(10)
 
     def listener_callback(self, msg):
@@ -43,27 +40,14 @@ class KdlDkin(Node):
         print(self.pose_stamped.pose.position)
         print(self.pose_stamped.pose.orientation)
 
-        # publish pose of gripper
         now = self.get_clock().now()
-        # self.set_pose_stamped()
+
         self.get_pose_stamped()
+
         self.pose_stamped.header.stamp = now.to_msg()
         self.pose_stamped.header.frame_id = 'base'
         self.pose_pub.publish(self.pose_stamped)
         # self.rate.sleep()
-
-    def set_pose_stamped(self):
-        position, quaternion = self.solve_gripper_params()
-
-        self.pose_stamped.pose.position.x = float(position[0])
-        self.pose_stamped.pose.position.y = float(position[1])
-        self.pose_stamped.pose.position.z = float(position[2])
-
-        self.pose_stamped.pose.orientation.x = float(quaternion[0])
-        self.pose_stamped.pose.orientation.y = float(quaternion[1])
-        self.pose_stamped.pose.orientation.z = float(quaternion[2])
-        self.pose_stamped.pose.orientation.w = float(quaternion[3])
-
 
     def get_pose_stamped(self):
         chain = Chain()
@@ -72,30 +56,30 @@ class KdlDkin(Node):
 
         r = rpy['arm1']['rpy']['r']
         p = rpy['arm1']['rpy']['p']
-        y = rpy['arm1']['rpy']['y']
+        yaw = rpy['arm1']['rpy']['y']
         x = rpy['arm1']['xyz']['x']
         y = rpy['arm1']['xyz']['y']
-        z = rpy['arm1']['xyz']['z']
+        z = rpy['arm1']['xyz']['z'] + rpy['base']['length']
 
-        arm1_frame = Frame(Rotation.RPY(r,p,y), Vector(x,y,z))
+        arm1_frame = Frame(Rotation.RPY(r,p,yaw), Vector(x,y,z))
         
         r = rpy['arm2']['rpy']['r']
         p = rpy['arm2']['rpy']['p']
-        y = rpy['arm2']['rpy']['y']
+        yaw = rpy['arm2']['rpy']['y']
         x = rpy['arm2']['xyz']['x']
         y = rpy['arm2']['xyz']['y']
         z = rpy['arm2']['xyz']['z']
 
-        arm2_frame = Frame(Rotation.RPY(r,p,y), Vector(x,y,z))
+        arm2_frame = Frame(Rotation.RPY(r,p,yaw), Vector(x,y,z))
 
         r = rpy['wrist']['rpy']['r']
         p = rpy['wrist']['rpy']['p']
-        y = rpy['wrist']['rpy']['y']
+        yaw = rpy['wrist']['rpy']['y']
         x = rpy['wrist']['xyz']['x']
         y = rpy['wrist']['xyz']['y']
         z = rpy['wrist']['xyz']['z']
 
-        wrist_frame = Frame(Rotation.RPY(r,p,y), Vector(x,y,z))
+        wrist_frame = Frame(Rotation.RPY(r,p,yaw), Vector(x,y,z))
 
         chain.addSegment(Segment(Joint(Joint.RotZ), arm1_frame))
         chain.addSegment(Segment(Joint(Joint.RotZ), arm2_frame))
@@ -113,6 +97,21 @@ class KdlDkin(Node):
 
         quaternion = gripper.M.GetQuaternion()
         position = gripper.p
+
+        self.pose_stamped.pose.position.x = float(position[0])
+        self.pose_stamped.pose.position.y = float(position[1])
+        self.pose_stamped.pose.position.z = float(position[2])
+
+        self.pose_stamped.pose.orientation.x = float(quaternion[0])
+        self.pose_stamped.pose.orientation.y = float(quaternion[1])
+        self.pose_stamped.pose.orientation.z = float(quaternion[2])
+        self.pose_stamped.pose.orientation.w = float(quaternion[3])
+
+
+
+    ''' dividing kdl solving into functions causes issues'''
+    def set_pose_stamped(self):
+        position, quaternion = self.solve_gripper_params()
 
         self.pose_stamped.pose.position.x = float(position[0])
         self.pose_stamped.pose.position.y = float(position[1])
