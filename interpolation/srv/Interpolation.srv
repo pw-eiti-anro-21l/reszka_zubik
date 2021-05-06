@@ -1,0 +1,7 @@
+float64 arm1_pos
+float64 arm2_pos
+float64 wrist_pos
+float64 time
+string type
+---
+string output
