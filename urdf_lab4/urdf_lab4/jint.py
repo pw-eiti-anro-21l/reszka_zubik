@@ -24,25 +24,25 @@ class MinimalClientAsync(Node):
                 self.get_logger().info('Niepoprawna wartośc przesunięcia dla członu 1') 
                 raise ValueError()
             else:
-                self.req.joint1_goal = float(sys.argv[1])
+                self.req.arm1_pos = float(sys.argv[1])
 
             if(float(sys.argv[2])>0 or float(sys.argv[2]) < -3):
                 self.get_logger().info('Niepoprawna wartośc przesunięcia dla członu 2')                
                 raise ValueError()
             else:
-                self.req.joint2_goal= float(sys.argv[2])
+                self.req.arm2_pos= float(sys.argv[2])
 
             if(float(sys.argv[3])>0 or float(sys.argv[3]) < -2):
                 self.get_logger().info('Niepoprawna wartośc przesunięcia dla członu 3')
                 raise ValueError()
             else:
-                self.req.joint3_goal = float(sys.argv[3])
+                self.req.wrist_pos = float(sys.argv[3])
 
             if(float(sys.argv[4])<=0):
                 self.get_logger().info('Niepoprawna wartość czasu')
                 raise ValueError()
             else:
-                self.req.time_of_move = float(sys.argv[4])
+                self.req.time = float(sys.argv[4])
 
             if(str(sys.argv[5]) !='linear' and str(sys.argv[5]) !='polynomial' ):
                 self.get_logger().info('Zły typ interpolacji ')
@@ -75,7 +75,7 @@ def main(args=None):
                     'Service call failed %r' % (e,))
             else:
                 minimal_client.get_logger().info(
-                    'Result of interpolation: joint1:%d, joint2:%d, joint3:%d, time:%d = %s' %
+                    'Result of interpolation: joint1:%f, joint2:%f, joint3:%f, time:%d = %s' %
                     (minimal_client.req.arm1_pos, minimal_client.req.arm2_pos, minimal_client.req.wrist_pos, minimal_client.req.time, response.output))
             break
 

@@ -3,6 +3,18 @@ from interpolation.srv import Interpolation
 import rclpy
 from rclpy.node import Node
 
+import os
+from rclpy.qos import QoSProfile
+from ament_index_python.packages import get_package_share_directory
+from geometry_msgs.msg import Quaternion
+from sensor_msgs.msg import JointState
+from geometry_msgs.msg import PoseStamped
+from rclpy.clock import ROSClock
+from sensor_msgs.msg import JointState
+
+import time
+import math 
+
 
 class MinimalService(Node):
 
@@ -22,34 +34,36 @@ class MinimalService(Node):
 
 
         sample_time = 0.1 # przykładowo co 0.1s wysyłamy wiadomość
-        total_time = request.time_of_move
+        total_time = request.time
         steps = math.floor(total_time/sample_time) # całkowita liczba kroków do pętli
 
         # Wyznaczenie współczynników dla metody wielomianowej
         if(request.type == 'polynomial'):
             a0 = [start_positions[0], start_positions[1], start_positions[2]]
-            a2 = [3*((request.joint1_goal - start_positions[0])/(request.time_of_move)**2),
-            3*((request.joint2_goal - start_positions[1])/(request.time_of_move)**2),
-            3*((request.joint3_goal - start_positions[2])/(request.time_of_move)**2)]
-            a3 = [-2*((request.joint1_goal - start_positions[0])/(request.time_of_move)**3),
-            -2*((request.joint2_goal - start_positions[1])/(request.time_of_move)**3),
-            -2*((request.joint3_goal - start_positions[2])/(request.time_of_move)**3),]
+            a2 = [3*((request.arm1_pos - start_positions[0])/(request.time)**2),
+            3*((request.arm2_pos - start_positions[1])/(request.time)**2),
+            3*((request.wrist_pos - start_positions[2])/(request.time)**2)]
+            a3 = [-2*((request.arm1_pos - start_positions[0])/(request.time)**3),
+            -2*((request.arm2_pos - start_positions[1])/(request.time)**3),
+            -2*((request.wrist_pos - start_positions[2])/(request.time)**3),]
 
         for i in range(1,steps+1):
             
             # Publisher dla Kartmana
-            qos_profile1 = QoSProfile(depth=10)
-            self.joint_pub = self.create_publisher(JointState, '/joint_states', qos_profile1)
+            qos_profile = QoSProfile(depth=10)
+            self.joint_pub = self.create_publisher(JointState, '/joint_states', qos_profile)
             joint_state = JointState()
             now = self.get_clock().now()
             joint_state.header.stamp = now.to_msg()
+            joint_state.header.frame_id = 'base'
             joint_state.name = ['arm1connect', 'arm2connect', 'wristconnect']
+
 
             # Interpolacja liniowa
             if(request.type == 'linear'):
-                joint1_next = start_positions[0] + ((request.joint1_goal - start_positions[0])/request.time_of_move)*sample_time*i
-                joint2_next = start_positions[1] + ((request.joint2_goal - start_positions[1])/request.time_of_move)*sample_time*i
-                joint3_next = start_positions[2] + ((request.joint3_goal - start_positions[2])/request.time_of_move)*sample_time*i
+                joint1_next = start_positions[0] + ((request.arm1_pos - start_positions[0])/request.time)*sample_time*i
+                joint2_next = start_positions[1] + ((request.arm2_pos - start_positions[1])/request.time)*sample_time*i
+                joint3_next = start_positions[2] + ((request.wrist_pos - start_positions[2])/request.time)*sample_time*i
 
             # interpolacja wielomianowa
             if(request.type == 'polynomial'):
@@ -66,7 +80,7 @@ class MinimalService(Node):
 
 
 
-        response.confirmation = 'Interpolacja zakończona'
+        response.output = 'Interpolacja zakończona'
 
         return response
 
