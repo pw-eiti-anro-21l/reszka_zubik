@@ -1,0 +1,24 @@
+Jak uruchamiam:
+
+Do tego zadania są potrzebne dwie paczki:
+	1. interpolation (w niej jest srv Interpolation - podobno musi być wielką literą)
+	2. urdf_lab4
+
+najpierw colcon interolation:
+(komenda) colcon build --packages-select interpolation
+
+potem colcon urdf_lab4:
+(komenda) colcon build --symlink-install --packages-select urdf_lab4
+(komenda) source install/setup.bash
+(komenda) ros2 launch urdf_lab4 lab4.launch.py 
+
+i teraz potrzebujemy joint_state więc uruchamiam (teoretycznie powinno działać bez tego ale nie wiem, bo joint jest też w jint)
+(komenda) source install/setup.bash
+(komenda) ros2 run urdf_lab4 publ
+
+potem komunikacja serwis client i to już komendy 
+(komenda serwis) ros2 run urdf_lab4 service
+(komenda klient) ros2 run urdf_lab4 client -1.5 -2.5 -3.5 25 linear
+
+i ogólnie komunikacja między nimi działa (widzą wiadmość interpolation itp), ale client zwraca errora więc nie działa
+

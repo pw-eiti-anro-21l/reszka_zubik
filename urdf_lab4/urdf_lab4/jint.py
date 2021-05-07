@@ -10,7 +10,7 @@ class MinimalClientAsync(Node):
     def __init__(self):
         super().__init__('minimal_client_async')
         self.cli = self.create_client(Interpolation, 'interpolation')
-        while not self.cli.wait_for_service(timeout_sec=1.0):
+        while not self.cli.wait_for_service(timeout_sec=2.0):
             self.get_logger().info('service not available, waiting again...')
         self.req = Interpolation.Request()
 
