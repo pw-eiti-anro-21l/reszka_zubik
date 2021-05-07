@@ -143,26 +143,6 @@
   
 </joint>
 
-
-<link name="empty">
-
-  <visual>
-    <origin rpy="0 0 0" xyz="0 0 0" />
-    <geometry>
-      <box size="0 0 0" />
-    </geometry>
-  </visual>
-
-</link>
-
-<joint name="after_empty"  type="fixed">
-
-  <origin rpy="0 0 0" xyz="0 0 0" />
-  <parent link="wrist"/>
-  <child link="empty"/>
-
-</joint>
-
 <link name="gripper">
 
   <visual>
@@ -178,11 +158,9 @@
 <joint name="end"  type="fixed">
 
   <origin rpy="0 0 0" xyz="0 0 0" />
-  <parent link="empty"/>
+  <parent link="wrist"/>
   <child link="gripper"/>
 
 </joint>
 
 </robot>
-
-
