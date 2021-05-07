@@ -1,6 +1,6 @@
 import sys
 
-from Interpolation.srv import Interpolation
+from interpolation.srv import Interpolation
 import rclpy
 from rclpy.node import Node
 

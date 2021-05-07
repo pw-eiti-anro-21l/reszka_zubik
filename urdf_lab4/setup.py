@@ -17,7 +17,9 @@ setup(
         (os.path.join('share', package_name), glob('launch/*.py')),
         (os.path.join('share', package_name), glob('urdf/*')),
         (os.path.join('share', package_name), glob('urdf_lab4/*.yaml')),
-        (os.path.join('share', package_name), glob('urdf_lab4/*.json'))
+        (os.path.join('share', package_name), glob('urdf_lab4/*.json')),
+        #(os.path.join('share', package_name), glob('urdf_lab4/*')),
+        
     ],
     install_requires=['setuptools'],
     zip_safe=True,
@@ -28,9 +30,15 @@ setup(
     tests_require=['pytest'],
     entry_points={
         'console_scripts': [
-        'state_publisher = urdf_lab4.state_publisher:main',
-        'nonkdl_dkin = urdf_lab4.nonkdl_dkin:main',
-        'kdl_dkin = urdf_lab4.kdl_dkin:main'
+        #'state_publisher = urdf_lab4.state_publisher:main',
+        #'nonkdl_dkin = urdf_lab4.nonkdl_dkin:main',
+        #'kdl_dkin = urdf_lab4.kdl_dkin:main',
+        'service = urdf_lab4.jint_control_srv:main',
+        'client = urdf_lab4.jint:main',
+        'publ = urdf_lab4.state_publisher:main', 
+        'service2 = urdf_lab4.oint_control_srv:main',
+        'client2 = urdf_lab4.oint:main',
+        
         ],
     },
 )

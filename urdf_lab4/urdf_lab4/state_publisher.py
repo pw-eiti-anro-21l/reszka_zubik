@@ -86,18 +86,18 @@ class StatePublisher(Node):
               self.joint_pub.publish(joint_state)
               self.broadcaster.sendTransform(odom_trans)
 
-              # creating next state
-              wristconnect += delta
-              if wristconnect >= 0.18 or wristconnect < 0:
-                delta *= -1
+              # # creating next state
+              # wristconnect += delta
+              # if wristconnect >= 0.18 or wristconnect < 0:
+              #   delta *= -1
 
-              arm1connect += angle1
-              if arm1connect > 0.7 or arm1connect < -0.7:
-                angle1 *= -1
+              # arm1connect += angle1
+              # if arm1connect > 0.7 or arm1connect < -0.7:
+              #   angle1 *= -1
 
-              arm2connect += angle2
-              if arm2connect > 0.5 or arm1connect < -0.5:
-                angle2 *= -1 
+              # arm2connect += angle2
+              # if arm2connect > 0.5 or arm1connect < -0.5:
+              #   angle2 *= -1 
 
               # This will adjust as needed per iteration
               loop_rate.sleep()
