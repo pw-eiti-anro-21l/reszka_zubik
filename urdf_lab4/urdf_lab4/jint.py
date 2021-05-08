@@ -18,6 +18,8 @@ class JintControlService(Node):
 
         self.joint_state = JointState()
         self.joint_state.name = ['arm1connect', 'arm2connect', 'wristconnect']
+        now = self.get_clock().now()
+        self.joint_state.header.stamp = now.to_msg()
         self.arm1connect = 0
         self.arm2connect = 0
         self.wristconnect = 0
