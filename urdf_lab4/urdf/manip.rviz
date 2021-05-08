@@ -50,11 +50,9 @@ Visualization Manager:
       Frame Timeout: 15
       Frames:
         All Enabled: true
-        base:
+        base_link:
           Value: true
         wrist:
-          Value: true
-        box:
           Value: true
         gripper:
           Value: true
@@ -62,27 +60,18 @@ Visualization Manager:
           Value: true
         arm2:
           Value: true
-        odom:
-          Value: true
-        rod:
-          Value: true
       Marker Scale: 1
       Name: TF
       Show Arrows: true
       Show Axes: true
       Show Names: false
       Tree:
-        odom:
-          base:
-            wrist:
-              gripper:
-                rod:
-                  box:
-                    {}
-            arm1:
-              {}
+        base_link:
+          arm1:
             arm2:
-              {}
+              wrist:
+                gripper:
+                  {}
       Update Interval: 0
       Value: true
     - Alpha: 1
@@ -103,17 +92,12 @@ Visualization Manager:
         Expand Link Details: false
         Expand Tree: false
         Link Tree Style: Links in Alphabetic Order
-        base:
+        base_link:
           Alpha: 1
           Show Axes: false
           Show Trail: false
           Value: true
         wrist:
-          Alpha: 1
-          Show Axes: false
-          Show Trail: false
-          Value: true
-        box:
           Alpha: 1
           Show Axes: false
           Show Trail: false
@@ -133,11 +117,6 @@ Visualization Manager:
           Show Axes: false
           Show Trail: false
           Value: true
-        rod:
-          Alpha: 1
-          Show Axes: false
-          Show Trail: false
-          Value: true
       Name: RobotModel
       TF Prefix: ""
       Update Interval: 0
@@ -146,8 +125,8 @@ Visualization Manager:
   Enabled: true
   Global Options:
     Background Color: 48; 48; 48
-    Fixed Frame: odom
     Frame Rate: 30
+    Fixed Frame: base_link
   Name: root
   Tools:
     - Class: rviz_default_plugins/Interact

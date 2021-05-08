@@ -65,7 +65,7 @@
     <color rgba="0 0 0 1"/>
 </material>
 
-<link name="base"> 
+<link name="base_link"> 
 
   <visual>
   <origin rpy="${base_r} ${base_p} ${base_yaw}" xyz="${base_x} ${base_y} ${base_z}" />
@@ -94,7 +94,7 @@
 <joint name="arm1connect" type="continuous">
   <axis xyz="0 0 1"/>
   <origin xyz="0 0 ${2*base_z}" />
-  <parent link="base"/>
+  <parent link="base_link"/>
   <child link="arm1"/>
 
 </joint>

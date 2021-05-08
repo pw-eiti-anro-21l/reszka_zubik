@@ -29,8 +29,8 @@ setup(
     entry_points={
         'console_scripts': [
         'state_publisher = urdf_lab4.state_publisher:main',
-        'nonkdl_dkin = urdf_lab4.nonkdl_dkin:main',
-        'kdl_dkin = urdf_lab4.kdl_dkin:main'
+        'jint = urdf_lab4.jint:main',
+        'jint_client = urdf_lab4.jint_client:main'
         ],
     },
 )

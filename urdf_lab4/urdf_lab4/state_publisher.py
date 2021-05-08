@@ -52,15 +52,13 @@ class StatePublisher(Node):
       wristconnect = 0.1
       arm1connect = 0.
       arm2connect = 0.
-      delta = 0.01
-      angle1 = 0.01
-      angle2 = 0.02
-      
+
 
       # message declarations
       odom_trans = TransformStamped()
       odom_trans.header.frame_id = 'odom'
       odom_trans.child_frame_id = 'base'
+
       joint_state = JointState()
 
       try:
@@ -80,26 +78,13 @@ class StatePublisher(Node):
               odom_trans.transform.translation.y = 0.0
               odom_trans.transform.translation.z = 0.0
               odom_trans.transform.rotation = \
-                  euler_to_quaternion(0, 0, 0) # roll,pitch,yaw
+                  euler_to_quaternion(0, 0, 0)
 
               # send the joint state and transform
               self.joint_pub.publish(joint_state)
               self.broadcaster.sendTransform(odom_trans)
 
-              # creating next state
-              wristconnect += delta
-              if wristconnect >= 0.18 or wristconnect < 0:
-                delta *= -1
 
-              arm1connect += angle1
-              if arm1connect > 0.7 or arm1connect < -0.7:
-                angle1 *= -1
-
-              arm2connect += angle2
-              if arm2connect > 0.5 or arm1connect < -0.5:
-                angle2 *= -1 
-
-              # This will adjust as needed per iteration
               loop_rate.sleep()
 
       except KeyboardInterrupt:
