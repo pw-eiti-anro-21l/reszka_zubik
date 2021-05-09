@@ -54,21 +54,30 @@ class KdlDkin(Node):
 
         rpy = self.read_yaml(os.path.dirname(os.path.realpath(__file__)) + '/dh.yaml')
 
+        r = rpy['base']['rpy']['r']
+        p = rpy['base']['rpy']['p']
+        yaw = rpy['base']['rpy']['y']
+        x = 2*rpy['base']['xyz']['x']
+        y = 2*rpy['base']['xyz']['y']
+        z = 2*rpy['base']['xyz']['z']
+
+        base_frame = Frame(Rotation.RPY(r,p,yaw), Vector(x,y,z))
+
         r = rpy['arm1']['rpy']['r']
         p = rpy['arm1']['rpy']['p']
         yaw = rpy['arm1']['rpy']['y']
-        x = rpy['arm1']['xyz']['x']
-        y = rpy['arm1']['xyz']['y']
-        z = rpy['arm1']['xyz']['z'] + rpy['base']['length']
+        x = 2*rpy['arm1']['xyz']['x']
+        y = 2*rpy['arm1']['xyz']['y']
+        z = 2*rpy['arm1']['xyz']['z'] # + rpy['base']['length']
 
         arm1_frame = Frame(Rotation.RPY(r,p,yaw), Vector(x,y,z))
         
         r = rpy['arm2']['rpy']['r']
         p = rpy['arm2']['rpy']['p']
         yaw = rpy['arm2']['rpy']['y']
-        x = rpy['arm2']['xyz']['x']
-        y = rpy['arm2']['xyz']['y']
-        z = rpy['arm2']['xyz']['z']
+        x = 2*rpy['arm2']['xyz']['x']
+        y = 2*rpy['arm2']['xyz']['y']
+        z = 2*rpy['arm2']['xyz']['z']
 
         arm2_frame = Frame(Rotation.RPY(r,p,yaw), Vector(x,y,z))
 
@@ -81,9 +90,20 @@ class KdlDkin(Node):
 
         wrist_frame = Frame(Rotation.RPY(r,p,yaw), Vector(x,y,z))
 
+        # r = rpy['gripper']['rpy']['r']
+        # p = rpy['gripper']['rpy']['p']
+        # yaw = rpy['gripper']['rpy']['y']
+        # x = rpy['gripper']['xyz']['x']
+        # y = rpy['gripper']['xyz']['y']
+        # z = rpy['gripper']['xyz']['z']
+
+        # gripper_frame = Frame(Rotation.RPY(r,p,yaw), Vector(x,y,z))
+
+        chain.addSegment(Segment(Joint(), base_frame))
         chain.addSegment(Segment(Joint(Joint.RotZ), arm1_frame))
         chain.addSegment(Segment(Joint(Joint.RotZ), arm2_frame))
         chain.addSegment(Segment(Joint(Joint.TransZ), wrist_frame))
+        # chain.addSegment(Segment(Joint(), gripper_frame))
 
         result = ChainFkSolverPos_recursive(chain)
         gripper = Frame()
@@ -91,7 +111,7 @@ class KdlDkin(Node):
         joint_array = JntArray(3)
         joint_array[0] = self.arm1connect
         joint_array[1] = self.arm2connect
-        joint_array[2] =self.wristconnect
+        joint_array[2] = -self.wristconnect
 
         result.JntToCart(joint_array, gripper)
 
