@@ -30,7 +30,9 @@ setup(
         'console_scripts': [
         'state_publisher = urdf_lab4.state_publisher:main',
         'jint = urdf_lab4.jint:main',
-        'jint_client = urdf_lab4.jint_client:main'
+        'oint = urdf_lab4.oint:main',
+        'jint_client = urdf_lab4.jint_client:main',
+        'oint_client = urdf_lab4.oint_client:main'
         ],
     },
 )
