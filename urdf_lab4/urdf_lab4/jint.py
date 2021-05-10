@@ -14,7 +14,7 @@ class JintControlService(Node):
 
         self.service = self.create_service(JintControl, 'jint_control', self.jint_control_callback)
         qos_profile = QoSProfile(depth=10)
-        self.joint_pub = self.create_publisher(JointState, 'joint_states', qos_profile)
+        self.joint_pub = self.create_publisher(JointState, '/joint_states', qos_profile)
 
         self.joint_state = JointState()
         self.joint_state.name = ['arm1connect', 'arm2connect', 'wristconnect']
@@ -29,7 +29,14 @@ class JintControlService(Node):
 
         sample_time = msg.sample_time
 
+        self.arm1connect = 0
+        self.arm2connect = 0
+        self.wristconnect = 0
+        self.time = 0
+
         while(self.time < msg.time):
+
+
 
             if msg.time <= 0:
                 return "Error: forbiden interpolation time"
@@ -41,6 +48,26 @@ class JintControlService(Node):
                 arm2connect = self.interpolate(msg.time, msg.arm2_pos)
                 wristconnect = self.interpolate(msg.time, msg.wrist_pos)
                 self.joint_state.position = [arm1connect, arm2connect, wristconnect]
+
+
+            elif msg.type == "polynomial":
+                a0 = [0.0,0.0,0.0]
+                a1 = [0.0,0.0,0.0]
+                a2 = [3*(msg.arm1_pos-self.arm1connect)/(msg.time)**2,
+                    3*(msg.arm2_pos-self.arm2connect)/(msg.time)**2,
+                    3*(msg.wrist_pos-self.arm2connect)/(msg.time)**2]
+                a3 = [-2*(msg.arm1_pos-self.arm1connect)/(msg.time)**3,
+                    -2*(msg.arm2_pos-self.arm2connect)/(msg.time)**3,
+                    -2*(msg.wrist_pos-self.arm2connect)/(msg.time)**3]
+
+                arm1connect = a0[0] + a1[0]*self.time + a2[0]*(self.time**2) + a3[0]*(self.time**3)
+                arm2connect = a0[1] + a1[1]*self.time + a2[1]*(self.time**2) + a3[1]*(self.time**3)
+                wristconnect = a0[2] + a1[2]*self.time + a2[2]*(self.time**2) + a3[2]*(self.time**3)
+
+
+                self.joint_state.position = [arm1connect, arm2connect, wristconnect]
+
+
             
             else:
                 pass
@@ -49,6 +76,8 @@ class JintControlService(Node):
             self.get_logger().info(f"arm1: {arm1connect}, arm2: {arm2connect}, wrist: {wristconnect}, time: {self.time}")
 
             self.joint_pub.publish(self.joint_state)
+
+            
 
             self.time += sample_time
 
@@ -66,6 +95,7 @@ class JintControlService(Node):
         t1 = time
 
         return (x1/t1)*self.time
+
 
 
 def main(args=None):
