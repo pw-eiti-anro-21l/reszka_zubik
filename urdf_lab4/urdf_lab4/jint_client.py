@@ -16,18 +16,16 @@ class JintClient(Node):
 
     def send_request(self):
         try:
-            if float(sys.argv[1]) > 0 or float(sys.argv[1]) < -1:
-                raise ValueError('Incorrect arm1 value for interpolation')
-            if float(sys.argv[2]) > 0 or float(sys.argv[2]) < -3:
+            if float(sys.argv[2]) > 2.5 or float(sys.argv[2]) < -2.5:
                 raise ValueError('Incorrect arm2 value for interpolation')
-            if float(sys.argv[3]) > 1 or float(sys.argv[3]) < -1:
+            if float(sys.argv[3]) > 0.2 or float(sys.argv[3]) < -0.5:
                 # self.get_logger().info('Incorrect arm2 value for interpolation')
                 raise ValueError('Incorrect wrist value for interpolation')
             if(float(sys.argv[4]) <= 0):
                 raise ValueError("Incorrect time value for interpolation")
             if(float(sys.argv[5]) > float(sys.argv[4]) or float(sys.argv[5]) < 0):
                 raise ValueError("Incorrect sample time value for interpolation")
-            if(str(sys.argv[6]) !='linear'):
+            if(str(sys.argv[6]) !='linear' and sys.argv[6] != 'polynomial'):
                 # self.get_logger().info('Incorrect interpolation type')
                 raise ValueError('Incorrect interpolation type')
         except IndexError("Incorrect number of arguments"):
