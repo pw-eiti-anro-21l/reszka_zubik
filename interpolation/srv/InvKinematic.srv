@@ -1,0 +1,6 @@
+float64 time
+string type
+float64 param1
+float64 param2
+---
+string result
